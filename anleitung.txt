@@ -1,0 +1,20 @@
+Readme:
+
+Benötigte Daten:
+
+Wahlkreise Shapefiles,
+Wahldaten vom Wahlleiter mit Wahlkreisergebnissen
+Liste der Twitter Accounts von Bundestagsabgeordneten
+
+Schritte:
+
+Shapefiles zu Geojson ändern. = mygeodata.cloud converter
+
+Daten von Twitter Accounts kriegen  = data.py run
+
+Matchen von Twitter Accounts und Abgeordneten = cleaning.py teil 1
+Danach in Handarbeit restliche Accounts
+
+Erstes Kartenbauen = cleaning.py Teil 2
+
+Dann tweets aller User feschen

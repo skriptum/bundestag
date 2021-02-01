@@ -1,3 +1,5 @@
 venv
 .vscode
 data/btw17
+config.ini
+.DS_Store
