@@ -1,0 +1,301 @@
+;Namen;name_id;id
+0;Petra Nicolaisen;;
+1;Astrid Damerow;;
+2;Mark Helfrich;;
+3;Johann David Wadephul;@JoWadephul;389682667
+4;Jens Mathias Stein;@stonie_kiel;46498076
+5;Melanie Bernstein;;
+6;Michael Abercron;@mvabercron;862747349277450240
+7;Gero Storjohann;@gero_storjohann;20534846.0
+8;Ingo Gädechens;@gadechens;1.157298670745899e+18
+9;Norbert Brackmann;;
+10;Claudia Schmidtke;@MdB_Schmidtke;1340469592666324992
+11;Dietrich Monstadt;@MdBMonstadt;1.1801023892752056e+18
+12;Karin Strenz;;
+13;Peter Stein;@Peter_Stein_CDU;2885729417
+14;Angela Dorothea Merkel;;
+15;Philipp Amthor;;
+16;Eckhardt Harald Rehberg;;
+17;Johannes Kahrs;;
+18;Matthias Bartke;@matthiasbartke;3376953843.0
+19;Niels Annen;@NielsAnnen;42401449
+20;Christoph Johannes Ploß;@christophploss;928335737803722753
+21;Aydan Saliha Özoğuz;@oezoguz;83342791
+22;Metin Hakverdi;@MetinHakverdi;1043288618
+23;Johann Saathoff;@Johann_Saathoff;159217491.0
+24;Gitta Connemann;@GittaConnemann;103658778.0
+25;Gitta Connemann;@gitta_connemann;1.1257514452052623e+18
+26;Siemtje Möller;@SiemtjeMdB;1115940238801743872
+27;Dennis Rohde;@DennisRohde;18160122.0
+28;Astrid Katharina Josefine Grotelüschen;;
+29;Enak Ferlemann;;
+30;Oliver Klaus Grundmann;;
+31;Albert Stegemann;@StegemannAlbert;1.1279612484931297e+18
+32;Silvia Breher;@BreherSilvia;1337056810566553607
+33;Axel Knoerig;@axel_knoerig;9.289748162202542e+17
+34;Andreas Mattfeldt;@AMattfeldt;23447001
+35;Lars Klingbeil;@larsklingbeil;16255941
+36;Michael Grosse-Brömer;@MGrosseBroemer;574424501
+37;Eckhard Pols;;
+38;André Berghegger;;
+39;Mathias Middelberg;;
+40;Maik Beermann;@MaikBeermann;569257486.0
+41;Kerstin Tack;;
+42;Yasmin Fahimi;@yasmin_fahimi;238088709.0
+43;Hendrik Hoppenstedt;;
+44;Henning Otte;;
+45;Hubertus Heil;@hubertus_heil;15943222.0
+46;Johannes Schraps;@jschraps;1356753444.0
+47;Matthias Miersch;;
+48;Bernd Helmut Westphal;;
+49;Sigmar Hartmut Gabriel;@sigmargabriel;569832889
+50;Carola Reimann;;
+51;Falko Mohrs;@FalkoMohrs;79228932.0
+52;Roy Kühne;@Dr_Roy_Kuehne;1906911697
+53;Thomas Oppermann;@ThomasOppermann;293066780
+54;Sarah Janina Ryglewski;@RyglewskiS;4858227178
+55;Uwe Schmidt;;
+56;Sebastian Steineke;@SteinekeCDU;277006619.0
+57;Jens Koeppen;@JensKoeppen;146376562.0
+58;Uwe Wolfgang Werner Feiler;;
+59;Hans-Georg Marwitz;;
+60;Dietlind Tiemann;@dr_tiemann;4818645382.0
+61;Manja Schüle;@ManjaSchuele;827090742162100224
+62;Jana Schimke;@JanaSchimke;728990858.0
+63;Martin Maria Otto Felix Patzelt;@MPatzeltCDU;1159072277746593792
+64;Klaus-Peter Friedrich Walter Schulze;;
+65;Michael Stübgen;;
+66;Eckhard Gnodtke;@EckhardGnodtke;1.0855996141227622e+18
+67;Manfred Behrens;@Manfredbehrens;61577387
+68;Heike Brehmer;@HeikeBrehmerMdB;150372237.0
+69;Tino Sorge;@TinoSorge;110385973.0
+70;Sepp Müller;@mueller_sepp;8.018031277626696e+17
+71;Kees Vries;;
+72;Christoph Bernstiel;@c_bernstiel;8.300856780630303e+17
+73;Dieter Stier;;
+74;Torsten Schweiger;@cdu_schweiger;2758602415.0
+75;Eva Högl;@EvaHoegl;35846585
+76;Stefan Liebich;@berlinliebich;1065899292.0
+77;Frank Steffel;@franksteffel;26869088.0
+78;Swen Schulz;;
+79;Thomas Heilmann;@ThomasHeilmann;56806603
+80;Klaus-Dieter Gröhler;@kdgroehler;1.2749713489437327e+18
+81;Jan-Marco Luczak;@JM_Luczak;22908417
+82;Fritz Felgentreu;@fritzfelgentreu;2805274855.0
+83;Canan Bayram;@LieblingXhain;587862375.0
+84;Gregor Gysi;@GregorGysi;888289790.0
+85;Petra Pau;@PetraPauMaHe;560467206.0
+86;Gesine Lötzsch;@LoetzschMdB;24178198.0
+87;Rudolf Henke;;
+88;Claudia Moll;@ClaudiaMollMdB;1.0703122291390259e+18
+89;Wilfried Oellers;@WilfriedOellers;906847944.0
+90;Thomas Rachel;@_ThomasRachel;1.0525241727173755e+18
+91;Georg Kippels;;
+92;Detlef Seif;;
+93;Karsten Möring;@KarstenMoering;1099159964.0
+94;Heribert Hirte;@HHirte;1513671236.0
+95;Rolf Mützenich;;
+96;Ulrich Kelber;@UlrichKelber;20877217
+97;Elisabeth Winkelmeier-Becker;;
+98;Norbert Röttgen;@n_roettgen;1.0401607992081613e+18
+99;Carsten Brodesser;;
+100;Hermann-Josef Tebroke;;
+101;Karl Lauterbach;@Karl_Lauterbach;3292982985.0
+102;Helge Lindh;@helgelindh;454981027.0
+103;Jürgen Hardt;@juergenhardt;38467606
+104;Michaela Noll;;
+105;Peter Beyer;@Peter_Beyer;445375409
+106;Thomas Jarzombek;@tj_tweets;37105136.0
+107;Sylvia Pantel;@SylviaPantel;1082464339
+108;Hermann Gröhe;@groehe;94363834.0
+109;Günter Krings;@guenterkrings;392312829.0
+110;Ansgar Heveling;;
+111;Uwe Schummer;@UweSchummer;409203792.0
+112;Stefan Rouenhoff;@StefanRouenhoff;963904327.0
+113;Sabine Katharina Weiss;;
+114;Kerstin Radomski;;
+115;Bärbel Bas;@baerbelbas;19438957.0
+116;Mahmut Özdemir;@oezdemir_spd;1399764944.0
+117;Dirk Vöpel;@VoepelDirk;8.29029719941247e+17
+118;Arno Klare;@arnoklare;1028440310.0
+119;Dirk Heidenblut;@DHeidenblut;1.0833712897866342e+18
+120;Matthias Hauer;@MatthiasHauer;1158585210
+121;Frank Schwabe;@FrankSchwabe;30050484
+122;Michael Peter Groß;@michaelgrossmdb;2814949590
+123;Markus Töns;@Toens_NRW04;3522875063.0
+124;Jens Spahn;@jensspahn;299650387.0
+125;Michael Gerdes;@GerdesMdB;2468956470.0
+126;Johannes August Röring;;
+127;Marc Henrichmann;@MarcHenrichmann;44608858.0
+128;Anja Karliczek;@AnjaKarliczek;2521976694.0
+129;Sybille Benning;@SybilleBenning;8.692057496328315e+17
+130;Reinhold Sendker;;
+131;Ralph Brinkhaus;@rbrinkhaus;38001527.0
+132;Wiebke Esdar;;
+133;Stefan Schwartze;@s_schwartze;1117526742.0
+134;Achim Post;@Achim_P;1117749912.0
+135;Kerstin Vieregge;;
+136;Christian Haase;;
+137;Carsten Linnemann;;
+138;René Röspel;;
+139;Ralf Kapschack;;
+140;Axel Schäfer;;
+141;Michelle Müntefering;@Mi_Muentefering;9.477402100366418e+17
+142;Marco Bülow;@marcobuelow;52119203
+143;Sabine Poschmann;@SabinePoschmann;7.386365687605535e+17
+144;Oliver Kaczmarek;@KaczmarekOliver;231440493.0
+145;Michael Thews;@michael_thews;409258073
+146;Hans-Jürgen Thies;;
+147;Patrick Ernst Hermann Sensburg;@PatrickSensburg;43537931
+148;Volkmar Klein;@VolkmarKlein;33043294.0
+149;Matthias Heider;@MatthiasHeider;154064825.0
+150;Dagmar Freitag;@DagmarFreitag13;1.1489164589839647e+18
+151;Marian Wendt;@MdbWendt;2430137675.0
+152;Jens Lehmann;;
+153;Sören Pellmann;@LINKEPELLI;74837812
+154;Katharina Landgraf;;
+155;Thomas Maizière;;
+156;Karsten Hilse;@HilseMdb;920932259347214338
+157;Tino Chrupalla;@Tino_Chrupalla;7.971373338207846e+17
+158;Frauke Petry;@FraukePetry;1273010575
+159;Gottfried Andreas Lämmel;;
+160;Arnold Vaatz;;
+161;Veronika Bellmann;;
+162;Frank Heinrich;@FrankHeinrich;43959185.0
+163;Marco Wanderwitz;@wanderwitz;16361044.0
+164;Alexander Gerd Krauß;;
+165;Carsten Körber;;
+166;Yvonne Magwas;@YvonneMagwas;3852561082.0
+167;Esther Dilcher;@EstherDilcher;939092636165689345
+168;Timon Gremmels;@Timon_Gremmels;494809842
+169;Michael Roth;@MiRo_SPD;1114675538
+170;Edgar Konrad Hartmut Franke;@FrankeEdgar;481393623
+171;Sören Bartol;@soerenbartol;57293969.0
+172;Hans-Jürgen Irmer;;
+173;Helge Reinhold Braun;@HBraun;19108071
+174;Michael Brand;;
+175;Peter Michael Tauber;@petertauber;22260144
+176;Markus Benjamin Koob;@KoobMar;2664174617
+177;Oswin Veith;;
+178;Klaus-Peter Willsch;;
+179;Ingmar Ludwig Jung;@Ingmar_Jung;23296367
+180;Katja Leikert;@KLeikert;467381196.0
+181;Norbert Maria Altenkamp;@NAltenkamp;1319570576957149184
+182;Matthias Rainer Zimmer;@matthiaszimmer;52994606
+183;Bettina Margarethe Wiesmann;;
+184;Stefan Sauer;;
+185;Björn Manuel Simon;@BjoernSimon;93845554
+186;Astrid Mannes;;
+187;Patricia Lips;;
+188;Michael Günther Meister;@meister_schafft;34214048
+189;Manfred Grund;;
+190;Christian Hirte;@ChristianHirte;37642893.0
+191;Johannes Selle;;
+192;Tankred Schipanski;@TSchipanski;39938182.0
+193;Antje Tillmann;@AntjeTillmann;1.0829257633163674e+18
+194;Volkmar Vogel;;
+195;Albert Helmut Weiler;;
+196;Mark Hauptmann;@MarkHauptmann;1370491088.0
+197;Erwin Rüddel;@Erwin_Rueddel;33071479.0
+198;Mechthild Heil;@MechthildHeil;974367631.0
+199;Josef Oster;@josefoster;28089973.0
+200;Peter Bleser;;
+201;Antje Lezius;;
+202;Patrick Schnieder;@PSchnieder;368334555.0
+203;Andreas Steier;@AndreasSteier;3236928208.0
+204;Andreas Nick;@DrAndreasNick;49450039
+205;Ursula Groden-Kranich;;
+206;Jan Metzler;@JanMetzler;995653004.0
+207;Jens Torbjörn Kartes;@KartesMdB;3188225915
+208;Johannes Steiniger;@JoSteiniger;83474160.0
+209;Gustav Herzog;@GustavHerzogMdB;8.570019413056348e+17
+210;Anita Schäfer;@SchaeferCDU;8.744741691063951e+17
+211;Thomas Gebhart;@thomasgebhart;51483238
+212;Stephan Mayer;;
+213;Andreas Lenz;@DerLenzMdB;3635730797.0
+214;Erich Irlstorfer;;
+215;Katrin Staffler;@katrin_staffler;8.250199120830382e+17
+216;Reinhard Brandl;@reinhardbrandl;262730721.0
+217;Bernhard Loos;;
+218;Wolfgang Stefinger;@StefingerMdB;4866955749.0
+219;Michael Kuffer;@MichaelKuffer;4249342037.0
+220;Stephan Pilsinger;@StephPilsinger;819914159915667456
+221;Florian Peter Hahn;@hahnflo;403735368
+222;Daniela Ludwig;@DaniLudwigMdB;1.0198466050449367e+18
+223;Alexander Gamal Radwan;@AlexanderRadwan;2831760211
+224;Michael Hannes Kießling;@Kiessling_MdB;730314294
+225;Peter Ramsauer;;
+226;Alexander Dobrindt;;
+227;Thomas Erndl;@TErndl;2192588903.0
+228;Florian Oßner;@Florian_Ossner;1294532364.0
+229;Andreas Franz Scheuer;@AndiScheuer;50315139
+230;Max Straubinger;;
+231;Alois Georg Josef Rainer;;
+232;Alois Karl;;
+233;Peter Aumer;@PeterAumer;348460907
+234;Karl Holmeier;;
+235;Albert Rupprecht;;
+236;Thomas Silberhorn;@SilberhornMdB;951489275312443392
+237;Silke Launert;@DrLaunert;4926993244
+238;Hans Georg Michelbach;@hans_michelbach;824221646290616321
+239;Hans-Peter Friedrich;;
+240;Emmi Zeulner;;
+241;Artur Auernhammer;;
+242;Stefan Müller;@smuellermdb;17960911.0
+243;Christian Schmidt;;
+244;Sebastian Brehm;@Brehm_inNBGNord;904304932257492992
+245;Michael Frieser;@MichaelFrieser;4577700622.0
+246;Marlene Mortler;;
+247;Andrea Lindholz;@AndreaLindholz;1446031532.0
+248;Dorothee Bär;@DoroBaer;140821364.0
+249;Alexander Hoffmann;;
+250;Anja Weisgerber;@anjaweisgerber;133770069.0
+251;Paul Lehrieder;;
+252;Volker Michael Ullrich;@VolkerUllrich;28446356
+253;Hansjörg Durz;@Hansjoerg_Durz;1662533040.0
+254;Ulrich Lange;@UlrichLange;68172699.0
+255;Georg Nüßlein;;
+256;Gerhard (Gerd) Müller;;
+257;Stephan Stracke;;
+258;Stefan Kaufmann;@StefanKaufmann;51752254.0
+259;Karin Maag;@MaagKarin;1.0950234507905475e+18
+260;Marc Biadacz;@MBiadaczMdB;935815000006053888
+261;Markus Grübel;@GruebelMdb;796691290016583680
+262;Michael Hennrich;@MichaelHennric2;1.1322605273784893e+18
+263;Hermann Färber;;
+264;Joachim Pfeiffer;;
+265;Steffen Bilger;@SteffenBilger;23925041.0
+266;Eberhard Gienger;;
+267;Alexander Throm;@alexander_throm;8.29056811974144e+17
+268;Christian Alexander Stetten;@CvStetten;1334019378
+269;Norbert Barthle;;
+270;Roderich Kiesewetter;@RKiesewetter;42698498
+271;Ingo Wellenreuther;;
+272;Axel Fischer;@Axel_Fischer;160906608.0
+273;Kai Whittaker;@Kai_Whittaker;2479436480.0
+274;Karl Lamers;;
+275;Nikolas Löbel;@NikolasLoebel;143351769.0
+276;Alois Gerig;;
+277;Stephan Harbarth;@stephanharbarth;56762889
+278;Olav Gutting;@olavgutting;58429842.0
+279;Gunther Krichbaum;@GuntherKrichba3;1161098384020824069
+280;Hans-Joachim Fuchtel;@fuchtel;66750542.0
+281;Matern Bieberstein;;
+282;Armin Schuster;@armin_schuster;395912134
+283;Peter Siegfried Weiß;@PeterWeissMdB;54202670
+284;Wolfgang Schäuble;;
+285;Volker Kauder;;
+286;Thorsten Frei;@thorsten_frei;1.1815985785082143e+18
+287;Andreas Jung;;
+288;Felix Schreiner;@felixschreiner;162398888.0
+289;Michael Donth;;
+290;Annette Widmann-Mauz;@AWidmannMauz;3351905747
+291;Ronja Kemmer;@RonjaKemmer;2405039875.0
+292;Josef Rief;;
+293;Lothar Riebsamen;;
+294;Axel Müller;;
+295;Thomas Bareiß;@Thomas_Bareiss;2797812265.0
+296;Josephine Loulou Ortleb;@joloulou;21618829
+297;Peter Altmaier;@peteraltmaier;378693834.0
+298;Nadine Schön;@NadineSchoen;41840905.0
+299;Markus Alexander Uhl;@uhl_markus;1391875208
