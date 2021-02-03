@@ -76,5 +76,5 @@ for i in range(len(data.index)):
 
 #%%
 data.to_csv("data/accounts_data.csv")
-data["name_id"].to_csv("data/ids.csv")
+data["name_id"].values.to_csv("data/ids.csv")
 #%%

@@ -5,28 +5,23 @@ import numpy as np
 import configparser
 import json
 #%%
-#authenticate with the twitter API using ini File
-config = configparser.ConfigParser()		
-config.read("config.ini")
+#function for auth with api
+def auth(config_file = "config.ini"):
+    """ authenticates with the twitter api, returns api
+    """
+    config = configparser.ConfigParser()		
+    config.read(config_file)
+    keys = config["Twitter"]
 
-keys = config["Twitter"]
+    consumer_key = keys["con_key"]
+    consumer_secret = keys["con_secret"]
 
-consumer_key = keys["con_key"]
-consumer_secret = keys["con_secret"]
+    auth = tweepy.AppAuthHandler(consumer_key,consumer_secret)
 
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    return api
 
-auth = tweepy.AppAuthHandler(consumer_key,consumer_secret)
-
-api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-Cursor = tweepy.Cursor
-
-#%%
-df = pd.read_csv("data/ids.csv")
-df = df.drop(columns = "Unnamed: 0")
-
-#%%
-#get the last tweets of the mdbs
-
+#function to get 20 tweets from the given ids
 def tweet_getter(list_of_ids, count = 20 ):
     """
     get the last tweets for the desired list of ids,
@@ -34,7 +29,7 @@ def tweet_getter(list_of_ids, count = 20 ):
      """
     tweet_list = []
 
-    for i in range(len(list_if_ids)):
+    for i in range(len(list_of_ids)):
         u_id = list_of_ids[i]
         user_tweets = api.user_timeline(
             u_id, count = count, tweet_mode = "extended", exclude_replies = False, include_rts = True
@@ -43,23 +38,8 @@ def tweet_getter(list_of_ids, count = 20 ):
         tweet_list.append(user_tweets)
 
     return tweet_list
-        
 
-#%%
-
-id_list = df.name_id
-#caution: tweet_getter return has to be the same length as the tweets column
-df["tweets"] = tweet_getter(id_list)
-
-#this returns an incredibly large JSON, 
-#we want to extract the tweet text and possibly other metadata
-#%%
-#build the central dataframe for all tweet data
-tweet_df = pd.DataFrame(columns = 
-    ["user","t_text", "t_id", "t_date", "t_hashtags", "t_isrt", "t_isrpl", "other_users"]
-)
-#%%
-#build functions to extract tweet data
+#helper function for data extracter
 def entitier(entity, typus):
     """ helper function for tweet_check(), input = entity dict 
     and a entity type, supported : "hashtags" and "users" """
@@ -82,13 +62,15 @@ def entitier(entity, typus):
 
     return ents
 
-
+#function to extract the data of a tweet object/json
 def tweet_check(status):
     """
     this function extracts some helpful data about a tweet, 
     input is a tweepy tweet object with related json 
      """
     t = status
+    if type(t) is not tweepy.models.Status:
+        raise Exception("Not a status object")
 
     #check if it is a retweet, call of status throws exception if it isnt
     try:
@@ -133,10 +115,10 @@ def tweet_check(status):
         "t_isrt": t_isrt, "t_isrpl": t_isrpl, "other_users": other_users
     }
 
-
+#function to parse all data of a list of status and put it in a dataframe
 def tweet_parser(list_of_status_objs):
     """ 
-    extracts the data for all the tweet objects in the list,
+    extracts the data for all the tweets in the list,
     returns a central  dataframe 
     """
     tweet_df = pd.DataFrame(columns = 
@@ -150,8 +132,31 @@ def tweet_parser(list_of_status_objs):
     return tweet_df
 
 
-
 #%%
 
+api = auth()
+
+id_df = pd.read_csv("data/ids.csv")
+id_df = df.drop(columns = "Unnamed: 0")
+
+id_list = id_df.name_id[:20] #!!!! currently only the 20 first mdbs
+
+tweet_json = tweet_getter(id_list)
+#this returns an incredibly large JSON, 
+#we want to extract the tweet text and possibly other metadata
+
+
+#%%
+df = pd.DataFrame(columns = 
+        ['user', 't_text', 't_id', 't_date', 't_hashtags', 't_isrt', 't_isrpl','other_users']
+        )
+for obj in tweet_json:
+    t_df = tweet_parser(tweet_json[0]) 
+    df = df.append(t_df)
 # %%
+
+# wanted: building a database to sotre all tweets, which is searchable
+
+## SELECT * FROM TABLE WHERE USER  == ...
+#ich will alle tweets eines users herausfiltern
 

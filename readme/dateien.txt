@@ -1,0 +1,10 @@
+Dateien, die benötigt werden:
+
+## update auf 2021
+Geometrie aller Wahlkreise: https://bundeswahlleiter.de/bundestagswahlen/2017/wahlkreiseinteilung/downloads.html
+
+##update auf 2021
+Wahlergebnisse:  https://www.bundeswahlleiter.de/bundestagswahlen/2017/ergebnisse.html
+
+#update
+Twitter listen aller mdbs: https://twitter.com/pollytix_gmbh/lists
