@@ -2,46 +2,38 @@
 import tweepy 
 import pandas as pd
 import os
-import configparser
-#%%
-#Keysaving
-config = configparser.ConfigParser()		
-config.read("config.ini")
-
-keys = config["Twitter"]
-consumer_key = keys["con_key"]
-
-consumer_secret = keys["con_secret"]
-
-# %%
-#Authentication with API
-auth = tweepy.AppAuthHandler(consumer_key,consumer_secret)
-
-api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-Cursor = tweepy.Cursor
-
+from fetch import api_auth
 
 #%%
-#create the central dataframe for storing everything
+#get every mdb and his party from  astored text file
+
+def get_users(path_for_files = "/Users/code/Desktop/bundestag/partei"):
+
+    """ get the users located in the subdirectory in txt files
+    with the name of the file being their party """
+
+    dict = {}
+    files = os.listdir(path_for_files)[1:]
+    for parteifile in files:
+        with open(parteifile) as partei:
+            for line in partei:
+                line =  line.strip("\n")
+                dict[line] = parteifile[:-4]
+    
+    return dict
+
+
+#%%
+api = auth()
+
+
 data = pd.DataFrame(columns = 
                     ["screen_name", "id", "desc", "creation_date",
                      "num_followers", "num_following", "num_tweets"])
 
 
-#%%
-#get every mdb and his party from  astored text file
-
-os.chdir("/Users/code/Desktop/bundestag/partei")
-dict = {}
-files = os.listdir()[1:]
-for parteifile in files:
-    with open(parteifile) as partei:
-        for line in partei:
-            line =  line.strip("\n")
-            dict[line] = parteifile[:-4]
-
-data2 = pd.DataFrame.from_dict(dict,orient="index", columns =  ["partei"])
-os.chdir("..")
+user_dict = get_users()
+data2 = pd.DataFrame.from_dict(user_dict,orient="index", columns =  ["partei"])
 
 data = data.append(data2)
 data = data.reset_index()

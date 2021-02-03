@@ -4,9 +4,12 @@ import pandas as pd
 import numpy as np
 import configparser
 import json
+import datetime
+from textblob_de import TextBlobDE as TextBlob
 #%%
+
 #function for auth with api
-def auth(config_file = "config.ini"):
+def api_auth(config_file = "config.ini"):
     """ authenticates with the twitter api, returns api
     """
     config = configparser.ConfigParser()		
@@ -18,8 +21,9 @@ def auth(config_file = "config.ini"):
 
     auth = tweepy.AppAuthHandler(consumer_key,consumer_secret)
 
-    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-    return api
+    interace = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    return interface
+
 
 #function to get 20 tweets from the given ids
 def tweet_getter(list_of_ids, count = 20 ):
@@ -38,6 +42,7 @@ def tweet_getter(list_of_ids, count = 20 ):
         tweet_list.append(user_tweets)
 
     return tweet_list
+
 
 #helper function for data extracter
 def entitier(entity, typus):
@@ -61,6 +66,7 @@ def entitier(entity, typus):
         ents.append(extracted)
 
     return ents
+
 
 #function to extract the data of a tweet object/json
 def tweet_check(status):
@@ -115,6 +121,7 @@ def tweet_check(status):
         "t_isrt": t_isrt, "t_isrpl": t_isrpl, "other_users": other_users
     }
 
+
 #function to parse all data of a list of status and put it in a dataframe
 def tweet_parser(list_of_status_objs):
     """ 
@@ -132,31 +139,82 @@ def tweet_parser(list_of_status_objs):
     return tweet_df
 
 
+#metrication of a users tweets dataframe
+def metricate(tweetdf):
+    """ takes a dataframe with tweets from
+     one user and calculates some metrics for it.
+     returns these values as dict
+    """
+    user = tweetdf.user[0]
+    #percent of retweets and replies of total tweets
+    retweet_rate = tweetdf.t_isrt.mean()
+    replie_rate =  tweetdf.t_isrpl.mean()
+
+    #now i want the tweets per day
+    ix = len(tweetdf.index) -1
+    last_tweet = tweetdf.t_date[ix].to_pydatetime()
+    td = datetime.datetime.now() - last_tweet
+
+    days = td.total_seconds() / (3600*24)
+    ts_perday = len(tweetdf) / days
+
+    #hashtags
+    hashtags = tweetdf.t_hashtags
+    hashtags = hashtags.dropna()
+    hashtags = hashtags.explode().values
+
+    #sentiment analysis (experimental)
+    sentiments = []
+    for text in tweetdf.t_text.values:
+        blob = TextBlob(text)
+        sent = blob.polarity
+        sentiments.append(sent)
+    avg_sent = np.mean(sentiments)
+
+    return {"user": user,
+        "retweet_rate": retweet_rate, "replie_rate": replie_rate,
+        "ts_perday": ts_perday, "hashtags":hashtags, "avg_sent": avg_sent
+    }
+
+
+
 #%%
 
-api = auth()
+api = api_auth()
 
-id_df = pd.read_csv("data/ids.csv")
-id_df = df.drop(columns = "Unnamed: 0")
+df = pd.read_csv("data/accounts_data.csv")
+df = df.drop(columns = "Unnamed: 0")
 
-id_list = id_df.name_id[:20] #!!!! currently only the 20 first mdbs
+id_list = df.name_id 
+id_list = id_list.values
 
-tweet_json = tweet_getter(id_list)
+
+
+#%%
+#lets get the data
+
 #this returns an incredibly large JSON, 
 #we want to extract the tweet text and possibly other metadata
+tweet_json = tweet_getter(id_list)
 
 
-#%%
-df = pd.DataFrame(columns = 
-        ['user', 't_text', 't_id', 't_date', 't_hashtags', 't_isrt', 't_isrpl','other_users']
-        )
+metric_df = pd.DataFrame(columns = 
+    ["user", "retweet_rate", "replie_rate", "ts_perday", "hashtags", "avg_sent"]
+    )
+
 for obj in tweet_json:
-    t_df = tweet_parser(tweet_json[0]) 
-    df = df.append(t_df)
-# %%
+    t_df = tweet_parser(obj) #should i store all tweets somewhere ? !!
+    metrics = metricate(t_df)
+    metric_df = metric_df.append(metrics, ignore_index = True)
+
+
+
+#df.to_csv("test.csv", index = False)
 
 # wanted: building a database to sotre all tweets, which is searchable
 
 ## SELECT * FROM TABLE WHERE USER  == ...
 #ich will alle tweets eines users herausfiltern
 
+
+# %%
