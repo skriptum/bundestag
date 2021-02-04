@@ -274,9 +274,20 @@ for obj in tweet_json:
     metrics = metricate(t_df)
     metric_df = metric_df.append(metrics, ignore_index = True)
 
+# add @ in front of every name in metric_df
 metric_df["name_id"] = "@"+ metric_df.name_id
 
+#merge both dataframes
 a_df = pd.merge(df, metric_df, how = "left", on = "name_id")
+
+#calculate tweet_rate ( if it is not a retweet or a replie)
+a_df["tweet_rate"] = 1 - (a_df.retweet_rate + a_df.replie_rate)
+
+
+
+a_df.to_csv("data/accounts_data.csv")
+
+
 # %%
 # possible metrics 
 #       'retweet_rate', 'replie_rate', 
@@ -284,3 +295,17 @@ a_df = pd.merge(df, metric_df, how = "left", on = "name_id")
 #       'avg_sent', 
 #
 #       num_followers, num_following, created_at
+
+
+# 20 meistgenutze hashtags
+ha = a_df.hashtags.explode().value_counts()
+ha.head(20)
+
+
+# %%
+#kommunizierer = replie rate > 0.35
+# papageien =  retweet-rate > 0.5
+#meinungsmacher = tweet_rate > 0.75
+
+# aktive = ts_perday > 3
+#inaktiv 
