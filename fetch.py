@@ -227,9 +227,11 @@ def metricate(tweetdf):
     ts_perday = len(tweetdf) / days
 
     #hashtags
+    hs = ""
     hashtags = tweetdf.t_hashtags
-    hashtags = hashtags.dropna()
-    hashtags = hashtags.explode().values
+    hashtags = hashtags.explode().dropna()
+    for h in hashtags:
+        hs += h + ", "
 
     #sentiment analysis (experimental)
     sentiments = []
@@ -241,7 +243,7 @@ def metricate(tweetdf):
 
     return {"name_id": user,
         "retweet_rate": retweet_rate, "replie_rate": replie_rate,
-        "ts_perday": ts_perday, "hashtags":hashtags, "avg_sent": avg_sent
+        "ts_perday": ts_perday, "hashtags":hs, "avg_sent": avg_sent
     }
 
 
@@ -286,26 +288,3 @@ a_df["tweet_rate"] = 1 - (a_df.retweet_rate + a_df.replie_rate)
 
 
 a_df.to_csv("data/accounts_data.csv")
-
-
-# %%
-# possible metrics 
-#       'retweet_rate', 'replie_rate', 
-#       'ts_perday', 'hashtags',
-#       'avg_sent', 
-#
-#       num_followers, num_following, created_at
-
-
-# 20 meistgenutze hashtags
-ha = a_df.hashtags.explode().value_counts()
-ha.head(20)
-
-
-# %%
-#kommunizierer = replie rate > 0.35
-# papageien =  retweet-rate > 0.5
-#meinungsmacher = tweet_rate > 0.75
-
-# aktive = ts_perday > 3
-#inaktiv 

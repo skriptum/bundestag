@@ -1,0 +1,301 @@
+,Namen,name_id,id,partei,WKR_NR,wahlkreis,twitter
+0,Petra Nicolaisen,,,CDU,1.0,Flensburg – Schleswig,0
+1,Astrid Damerow,,,CDU,2.0,Nordfriesland – Dithmarschen Nord,0
+2,Mark Helfrich,,,CDU,3.0,Steinburg – Dithmarschen Süd,0
+3,Johann David Wadephul,@JoWadephul,389682667.0,CDU,4.0,Rendsburg-Eckernförde,1
+4,Jens Mathias Stein,@stonie_kiel,46498076.0,SPD,5.0,Kiel,1
+5,Melanie Bernstein,,,CDU,6.0,Plön – Neumünster,0
+6,Michael Abercron,@mvabercron,8.627473492774502e+17,CDU,7.0,Pinneberg,1
+7,Gero Storjohann,@gero_storjohann,20534846.0,CDU,8.0,Segeberg – Stormarn-Mitte,1
+8,Ingo Gädechens,@gadechens,1.157298670745899e+18,CDU,9.0,Ostholstein – Stormarn-Nord,1
+9,Norbert Brackmann,,,CDU,10.0,Herzogtum Lauenburg – Stormarn-Süd,0
+10,Claudia Schmidtke,@MdB_Schmidtke,1.3404695926663247e+18,CDU,11.0,Lübeck,1
+11,Dietrich Monstadt,@MdBMonstadt,1.1801023892752056e+18,CDU,12.0,Schwerin – Ludwigslust-Parchim I – Nordwestmecklenburg I,1
+12,Karin Strenz,,,CDU,13.0,Ludwigslust-Parchim II – Nordwestmecklenburg II – Landkreis Rostock I,0
+13,Peter Stein,@Peter_Stein_CDU,2885729417.0,CDU,14.0,Rostock – Landkreis Rostock II,1
+14,Angela Dorothea Merkel,,,CDU,15.0,Vorpommern-Rügen – Vorpommern-Greifswald I,0
+15,Philipp Amthor,,,CDU,16.0,Mecklenburgische Seenplatte I – Vorpommern-Greifswald II,0
+16,Eckhardt Harald Rehberg,,,CDU,17.0,Mecklenburgische Seenplatte II – Landkreis Rostock III,0
+17,Johannes Kahrs,,,SPD,18.0,Hamburg-Mitte,0
+18,Matthias Bartke,@matthiasbartke,3376953843.0,SPD,19.0,Hamburg-Altona,1
+19,Niels Annen,@NielsAnnen,42401449.0,SPD,20.0,Hamburg-Eimsbüttel,1
+20,Christoph Johannes Ploß,@christophploss,9.283357378037229e+17,CDU,21.0,Hamburg-Nord,1
+21,Aydan Saliha Özoğuz,@oezoguz,83342791.0,SPD,22.0,Hamburg-Wandsbek,1
+22,Metin Hakverdi,@MetinHakverdi,1043288618.0,SPD,23.0,Hamburg-Bergedorf – Harburg,1
+23,Johann Saathoff,@Johann_Saathoff,159217491.0,SPD,24.0,Aurich – Emden,1
+24,Gitta Connemann,@GittaConnemann,103658778.0,CDU,25.0,Unterems,1
+25,Gitta Connemann,@gitta_connemann,1.1257514452052623e+18,CDU,25.0,Unterems,1
+26,Siemtje Möller,@SiemtjeMdB,1.1159402388017437e+18,SPD,26.0,Friesland – Wilhelmshaven – Wittmund,1
+27,Dennis Rohde,@DennisRohde,18160122.0,SPD,27.0,Oldenburg – Ammerland,1
+28,Astrid Katharina Josefine Grotelüschen,,,CDU,28.0,Delmenhorst – Wesermarsch – Oldenburg-Land,0
+29,Enak Ferlemann,,,CDU,29.0,Cuxhaven – Stade II,0
+30,Oliver Klaus Grundmann,,,CDU,30.0,Stade I – Rotenburg II,0
+31,Albert Stegemann,@StegemannAlbert,1.1279612484931296e+18,CDU,31.0,Mittelems,1
+32,Silvia Breher,@BreherSilvia,1.3370568105665536e+18,CDU,32.0,Cloppenburg – Vechta,1
+33,Axel Knoerig,@axel_knoerig,9.289748162202542e+17,CDU,33.0,Diepholz – Nienburg I,1
+34,Andreas Mattfeldt,@AMattfeldt,23447001.0,CDU,34.0,Osterholz – Verden,1
+35,Lars Klingbeil,@larsklingbeil,16255941.0,SPD,35.0,Rotenburg I – Heidekreis,1
+36,Michael Grosse-Brömer,@MGrosseBroemer,574424501.0,CDU,36.0,Harburg,1
+37,Eckhard Pols,,,CDU,37.0,Lüchow-Dannenberg – Lüneburg,0
+38,André Berghegger,,,CDU,38.0,Osnabrück-Land,0
+39,Mathias Middelberg,,,CDU,39.0,Stadt Osnabrück,0
+40,Maik Beermann,@MaikBeermann,569257486.0,CDU,40.0,Nienburg II – Schaumburg,1
+41,Kerstin Tack,,,SPD,41.0,Stadt Hannover I,0
+42,Yasmin Fahimi,@yasmin_fahimi,238088709.0,SPD,42.0,Stadt Hannover II,1
+43,Hendrik Hoppenstedt,,,CDU,43.0,Hannover-Land I,0
+44,Henning Otte,,,CDU,44.0,Celle – Uelzen,0
+45,Hubertus Heil,@hubertus_heil,15943222.0,SPD,45.0,Gifhorn – Peine,1
+46,Johannes Schraps,@jschraps,1356753444.0,SPD,46.0,Hameln-Pyrmont – Holzminden,1
+47,Matthias Miersch,,,SPD,47.0,Hannover-Land II,0
+48,Bernd Helmut Westphal,,,SPD,48.0,Hildesheim,0
+49,Sigmar Hartmut Gabriel,@sigmargabriel,569832889.0,SPD,49.0,Salzgitter – Wolfenbüttel,1
+50,Carola Reimann,,,SPD,50.0,Braunschweig,0
+51,Falko Mohrs,@FalkoMohrs,79228932.0,SPD,51.0,Helmstedt – Wolfsburg,1
+52,Roy Kühne,@Dr_Roy_Kuehne,1906911697.0,CDU,52.0,Goslar – Northeim – Osterode,1
+53,Thomas Oppermann,@ThomasOppermann,293066780.0,SPD,53.0,Göttingen,1
+54,Sarah Janina Ryglewski,@RyglewskiS,4858227178.0,SPD,54.0,Bremen I,1
+55,Uwe Schmidt,,,SPD,55.0,Bremen II – Bremerhaven,0
+56,Sebastian Steineke,@SteinekeCDU,277006619.0,CDU,56.0,Prignitz – Ostprignitz-Ruppin – Havelland I,1
+57,Jens Koeppen,@JensKoeppen,146376562.0,CDU,57.0,Uckermark – Barnim I,1
+58,Uwe Wolfgang Werner Feiler,,,CDU,58.0,Oberhavel – Havelland II,0
+59,Hans-Georg Marwitz,,,CDU,59.0,Märkisch-Oderland – Barnim II,0
+60,Dietlind Tiemann,@dr_tiemann,4818645382.0,CDU,60.0,Brandenburg an der Havel – Potsdam-Mittelmark I – Havelland III – Teltow-Fläming I,1
+61,Manja Schüle,@ManjaSchuele,8.270907421621002e+17,SPD,61.0,Potsdam – Potsdam-Mittelmark II – Teltow-Fläming II,1
+62,Jana Schimke,@JanaSchimke,728990858.0,CDU,62.0,Dahme-Spreewald – Teltow-Fläming III – Oberspreewald-Lausitz I,1
+63,Martin Maria Otto Felix Patzelt,@MPatzeltCDU,1.1590722777465935e+18,CDU,63.0,Frankfurt (Oder) – Oder-Spree,1
+64,Klaus-Peter Friedrich Walter Schulze,,,CDU,64.0,Cottbus – Spree-Neiße,0
+65,Michael Stübgen,,,CDU,65.0,Elbe-Elster – Oberspreewald-Lausitz II,0
+66,Eckhard Gnodtke,@EckhardGnodtke,1.0855996141227622e+18,CDU,66.0,Altmark,1
+67,Manfred Behrens,@Manfredbehrens,61577387.0,CDU,67.0,Börde – Jerichower Land,1
+68,Heike Brehmer,@HeikeBrehmerMdB,150372237.0,CDU,68.0,Harz,1
+69,Tino Sorge,@TinoSorge,110385973.0,CDU,69.0,Magdeburg,1
+70,Sepp Müller,@mueller_sepp,8.018031277626696e+17,CDU,70.0,Dessau – Wittenberg,1
+71,Kees Vries,,,CDU,71.0,Anhalt,0
+72,Christoph Bernstiel,@c_bernstiel,8.300856780630303e+17,CDU,72.0,Halle,1
+73,Dieter Stier,,,CDU,73.0,Burgenland – Saalekreis,0
+74,Torsten Schweiger,@cdu_schweiger,2758602415.0,CDU,74.0,Mansfeld,1
+75,Eva Högl,@EvaHoegl,35846585.0,SPD,75.0,Berlin-Mitte,1
+76,Stefan Liebich,@berlinliebich,1065899292.0,DIE LINKE,76.0,Berlin-Pankow,1
+77,Frank Steffel,@franksteffel,26869088.0,CDU,77.0,Berlin-Reinickendorf,1
+78,Swen Schulz,,,SPD,78.0,Berlin-Spandau – Charlottenburg Nord,0
+79,Thomas Heilmann,@ThomasHeilmann,56806603.0,CDU,79.0,Berlin-Steglitz-Zehlendorf,1
+80,Klaus-Dieter Gröhler,@kdgroehler,1.2749713489437327e+18,CDU,80.0,Berlin-Charlottenburg-Wilmersdorf,1
+81,Jan-Marco Luczak,@JM_Luczak,22908417.0,CDU,81.0,Berlin-Tempelhof-Schöneberg,1
+82,Fritz Felgentreu,@fritzfelgentreu,2805274855.0,SPD,82.0,Berlin-Neukölln,1
+83,Canan Bayram,@LieblingXhain,587862375.0,GRÜNE,83.0,Berlin-Friedrichshain-Kreuzberg – Prenzlauer Berg Ost,1
+84,Gregor Gysi,@GregorGysi,888289790.0,DIE LINKE,84.0,Berlin-Treptow-Köpenick,1
+85,Petra Pau,@PetraPauMaHe,560467206.0,DIE LINKE,85.0,Berlin-Marzahn-Hellersdorf,1
+86,Gesine Lötzsch,@LoetzschMdB,24178198.0,DIE LINKE,86.0,Berlin-Lichtenberg,1
+87,Rudolf Henke,,,CDU,87.0,Aachen I,0
+88,Claudia Moll,@ClaudiaMollMdB,1.070312229139026e+18,SPD,88.0,Aachen II,1
+89,Wilfried Oellers,@WilfriedOellers,906847944.0,CDU,89.0,Heinsberg,1
+90,Thomas Rachel,@_ThomasRachel,1.0525241727173756e+18,CDU,90.0,Düren,1
+91,Georg Kippels,,,CDU,91.0,Rhein-Erft-Kreis I,0
+92,Detlef Seif,,,CDU,92.0,Euskirchen – Rhein-Erft-Kreis II,0
+93,Karsten Möring,@KarstenMoering,1099159964.0,CDU,93.0,Köln I,1
+94,Heribert Hirte,@HHirte,1513671236.0,CDU,94.0,Köln II,1
+95,Rolf Mützenich,,,SPD,95.0,Köln III,0
+96,Ulrich Kelber,@UlrichKelber,20877217.0,SPD,96.0,Bonn,1
+97,Elisabeth Winkelmeier-Becker,,,CDU,97.0,Rhein-Sieg-Kreis I,0
+98,Norbert Röttgen,@n_roettgen,1.0401607992081612e+18,CDU,98.0,Rhein-Sieg-Kreis II,1
+99,Carsten Brodesser,,,CDU,99.0,Oberbergischer Kreis,0
+100,Hermann-Josef Tebroke,,,CDU,100.0,Rheinisch-Bergischer Kreis,0
+101,Karl Lauterbach,@Karl_Lauterbach,3292982985.0,SPD,101.0,Leverkusen – Köln IV,1
+102,Helge Lindh,@helgelindh,454981027.0,SPD,102.0,Wuppertal I,1
+103,Jürgen Hardt,@juergenhardt,38467606.0,CDU,103.0,Solingen – Remscheid – Wuppertal II,1
+104,Michaela Noll,,,CDU,104.0,Mettmann I,0
+105,Peter Beyer,@Peter_Beyer,445375409.0,CDU,105.0,Mettmann II,1
+106,Thomas Jarzombek,@tj_tweets,37105136.0,CDU,106.0,Düsseldorf I,1
+107,Sylvia Pantel,@SylviaPantel,1082464339.0,CDU,107.0,Düsseldorf II,1
+108,Hermann Gröhe,@groehe,94363834.0,CDU,108.0,Neuss I,1
+109,Günter Krings,@guenterkrings,392312829.0,CDU,109.0,Mönchengladbach,1
+110,Ansgar Heveling,,,CDU,110.0,Krefeld I – Neuss II,0
+111,Uwe Schummer,@UweSchummer,409203792.0,CDU,111.0,Viersen,1
+112,Stefan Rouenhoff,@StefanRouenhoff,963904327.0,CDU,112.0,Kleve,1
+113,Sabine Katharina Weiss,,,CDU,113.0,Wesel I,0
+114,Kerstin Radomski,,,CDU,114.0,Krefeld II – Wesel II,0
+115,Bärbel Bas,@baerbelbas,19438957.0,SPD,115.0,Duisburg I,1
+116,Mahmut Özdemir,@oezdemir_spd,1399764944.0,SPD,116.0,Duisburg II,1
+117,Dirk Vöpel,@VoepelDirk,8.29029719941247e+17,SPD,117.0,Oberhausen – Wesel III,1
+118,Arno Klare,@arnoklare,1028440310.0,SPD,118.0,Mülheim – Essen I,1
+119,Dirk Heidenblut,@DHeidenblut,1.0833712897866342e+18,SPD,119.0,Essen II,1
+120,Matthias Hauer,@MatthiasHauer,1158585210.0,CDU,120.0,Essen III,1
+121,Frank Schwabe,@FrankSchwabe,30050484.0,SPD,121.0,Recklinghausen I,1
+122,Michael Peter Groß,@michaelgrossmdb,2814949590.0,SPD,122.0,Recklinghausen II,1
+123,Markus Töns,@Toens_NRW04,3522875063.0,SPD,123.0,Gelsenkirchen,1
+124,Jens Spahn,@jensspahn,299650387.0,CDU,124.0,Steinfurt I – Borken I,1
+125,Michael Gerdes,@GerdesMdB,2468956470.0,SPD,125.0,Bottrop – Recklinghausen III,1
+126,Johannes August Röring,,,CDU,126.0,Borken II,0
+127,Marc Henrichmann,@MarcHenrichmann,44608858.0,CDU,127.0,Coesfeld – Steinfurt II,1
+128,Anja Karliczek,@AnjaKarliczek,2521976694.0,CDU,128.0,Steinfurt III,1
+129,Sybille Benning,@SybilleBenning,8.692057496328315e+17,CDU,129.0,Münster,1
+130,Reinhold Sendker,,,CDU,130.0,Warendorf,0
+131,Ralph Brinkhaus,@rbrinkhaus,38001527.0,CDU,131.0,Gütersloh I,1
+132,Wiebke Esdar,,,SPD,132.0,Bielefeld – Gütersloh II,0
+133,Stefan Schwartze,@s_schwartze,1117526742.0,SPD,133.0,Herford – Minden-Lübbecke II,1
+134,Achim Post,@Achim_P,1117749912.0,SPD,134.0,Minden-Lübbecke I,1
+135,Kerstin Vieregge,,,CDU,135.0,Lippe I,0
+136,Christian Haase,,,CDU,136.0,Höxter – Lippe II,0
+137,Carsten Linnemann,,,CDU,137.0,Paderborn – Gütersloh III,0
+138,René Röspel,,,SPD,138.0,Hagen – Ennepe-Ruhr-Kreis I,0
+139,Ralf Kapschack,,,SPD,139.0,Ennepe-Ruhr-Kreis II,0
+140,Axel Schäfer,,,SPD,140.0,Bochum I,0
+141,Michelle Müntefering,@Mi_Muentefering,9.477402100366418e+17,SPD,141.0,Herne – Bochum II,1
+142,Marco Bülow,@marcobuelow,52119203.0,SPD,142.0,Dortmund I,1
+143,Sabine Poschmann,@SabinePoschmann,7.386365687605535e+17,SPD,143.0,Dortmund II,1
+144,Oliver Kaczmarek,@KaczmarekOliver,231440493.0,SPD,144.0,Unna I,1
+145,Michael Thews,@michael_thews,409258073.0,SPD,145.0,Hamm – Unna II,1
+146,Hans-Jürgen Thies,,,CDU,146.0,Soest,0
+147,Patrick Ernst Hermann Sensburg,@PatrickSensburg,43537931.0,CDU,147.0,Hochsauerlandkreis,1
+148,Volkmar Klein,@VolkmarKlein,33043294.0,CDU,148.0,Siegen-Wittgenstein,1
+149,Matthias Heider,@MatthiasHeider,154064825.0,CDU,149.0,Olpe – Märkischer Kreis I,1
+150,Dagmar Freitag,@DagmarFreitag13,1.1489164589839648e+18,SPD,150.0,Märkischer Kreis II,1
+151,Marian Wendt,@MdbWendt,2430137675.0,CDU,151.0,Nordsachsen,1
+152,Jens Lehmann,,,CDU,152.0,Leipzig I,0
+153,Sören Pellmann,@LINKEPELLI,74837812.0,DIE LINKE,153.0,Leipzig II,1
+154,Katharina Landgraf,,,CDU,154.0,Leipzig-Land,0
+155,Thomas Maizière,,,CDU,155.0,Meißen,0
+156,Karsten Hilse,@HilseMdb,9.209322593472143e+17,AfD,156.0,Bautzen I,1
+157,Tino Chrupalla,@Tino_Chrupalla,7.971373338207846e+17,AfD,157.0,Görlitz,1
+158,Frauke Petry,@FraukePetry,1273010575.0,AfD,158.0,Sächsische Schweiz-Osterzgebirge,1
+159,Gottfried Andreas Lämmel,,,CDU,159.0,Dresden I,0
+160,Arnold Vaatz,,,CDU,160.0,Dresden II – Bautzen II,0
+161,Veronika Bellmann,,,CDU,161.0,Mittelsachsen,0
+162,Frank Heinrich,@FrankHeinrich,43959185.0,CDU,162.0,Chemnitz,1
+163,Marco Wanderwitz,@wanderwitz,16361044.0,CDU,163.0,Chemnitzer Umland – Erzgebirgskreis II,1
+164,Alexander Gerd Krauß,,,CDU,164.0,Erzgebirgskreis I,0
+165,Carsten Körber,,,CDU,165.0,Zwickau,0
+166,Yvonne Magwas,@YvonneMagwas,3852561082.0,CDU,166.0,Vogtlandkreis,1
+167,Esther Dilcher,@EstherDilcher,9.390926361656893e+17,SPD,167.0,Waldeck,1
+168,Timon Gremmels,@Timon_Gremmels,494809842.0,SPD,168.0,Kassel,1
+169,Michael Roth,@MiRo_SPD,1114675538.0,SPD,169.0,Werra-Meißner – Hersfeld-Rotenburg,1
+170,Edgar Konrad Hartmut Franke,@FrankeEdgar,481393623.0,SPD,170.0,Schwalm-Eder,1
+171,Sören Bartol,@soerenbartol,57293969.0,SPD,171.0,Marburg,1
+172,Hans-Jürgen Irmer,,,CDU,172.0,Lahn-Dill,0
+173,Helge Reinhold Braun,@HBraun,19108071.0,CDU,173.0,Gießen,1
+174,Michael Brand,,,CDU,174.0,Fulda,0
+175,Peter Michael Tauber,@petertauber,22260144.0,CDU,175.0,Main-Kinzig – Wetterau II – Schotten,1
+176,Markus Benjamin Koob,@KoobMar,2664174617.0,CDU,176.0,Hochtaunus,1
+177,Oswin Veith,,,CDU,177.0,Wetterau I,0
+178,Klaus-Peter Willsch,,,CDU,178.0,Rheingau-Taunus – Limburg,0
+179,Ingmar Ludwig Jung,@Ingmar_Jung,23296367.0,CDU,179.0,Wiesbaden,1
+180,Katja Leikert,@KLeikert,467381196.0,CDU,180.0,Hanau,1
+181,Norbert Maria Altenkamp,@NAltenkamp,1.3195705769571492e+18,CDU,181.0,Main-Taunus,1
+182,Matthias Rainer Zimmer,@matthiaszimmer,52994606.0,CDU,182.0,Frankfurt am Main I,1
+183,Bettina Margarethe Wiesmann,,,CDU,183.0,Frankfurt am Main II,0
+184,Stefan Sauer,,,CDU,184.0,Groß-Gerau,0
+185,Björn Manuel Simon,@BjoernSimon,93845554.0,CDU,185.0,Offenbach,1
+186,Astrid Mannes,,,CDU,186.0,Darmstadt,0
+187,Patricia Lips,,,CDU,187.0,Odenwald,0
+188,Michael Günther Meister,@meister_schafft,34214048.0,CDU,188.0,Bergstraße,1
+189,Manfred Grund,,,CDU,189.0,Eichsfeld – Nordhausen – Kyffhäuserkreis,0
+190,Christian Hirte,@ChristianHirte,37642893.0,CDU,190.0,Eisenach – Wartburgkreis – Unstrut-Hainich-Kreis,1
+191,Johannes Selle,,,CDU,191.0,Jena – Sömmerda – Weimarer Land I,0
+192,Tankred Schipanski,@TSchipanski,39938182.0,CDU,192.0,Gotha – Ilm-Kreis,1
+193,Antje Tillmann,@AntjeTillmann,1.0829257633163674e+18,CDU,193.0,Erfurt – Weimar – Weimarer Land II,1
+194,Volkmar Vogel,,,CDU,194.0,Gera – Greiz – Altenburger Land,0
+195,Albert Helmut Weiler,,,CDU,195.0,Saalfeld-Rudolstadt – Saale-Holzland-Kreis – Saale-Orla-Kreis,0
+196,Mark Hauptmann,@MarkHauptmann,1370491088.0,CDU,196.0,Suhl – Schmalkalden-Meiningen – Hildburghausen – Sonneberg,1
+197,Erwin Rüddel,@Erwin_Rueddel,33071479.0,CDU,197.0,Neuwied,1
+198,Mechthild Heil,@MechthildHeil,974367631.0,CDU,198.0,Ahrweiler,1
+199,Josef Oster,@josefoster,28089973.0,CDU,199.0,Koblenz,1
+200,Peter Bleser,,,CDU,200.0,Mosel/Rhein-Hunsrück,0
+201,Antje Lezius,,,CDU,201.0,Kreuznach,0
+202,Patrick Schnieder,@PSchnieder,368334555.0,CDU,202.0,Bitburg,1
+203,Andreas Steier,@AndreasSteier,3236928208.0,CDU,203.0,Trier,1
+204,Andreas Nick,@DrAndreasNick,49450039.0,CDU,204.0,Montabaur,1
+205,Ursula Groden-Kranich,,,CDU,205.0,Mainz,0
+206,Jan Metzler,@JanMetzler,995653004.0,CDU,206.0,Worms,1
+207,Jens Torbjörn Kartes,@KartesMdB,3188225915.0,CDU,207.0,Ludwigshafen/Frankenthal,1
+208,Johannes Steiniger,@JoSteiniger,83474160.0,CDU,208.0,Neustadt – Speyer,1
+209,Gustav Herzog,@GustavHerzogMdB,8.570019413056348e+17,SPD,209.0,Kaiserslautern,1
+210,Anita Schäfer,@SchaeferCDU,8.744741691063951e+17,CDU,210.0,Pirmasens,1
+211,Thomas Gebhart,@thomasgebhart,51483238.0,CDU,211.0,Südpfalz,1
+212,Stephan Mayer,,,CSU,212.0,Altötting,0
+213,Andreas Lenz,@DerLenzMdB,3635730797.0,CSU,213.0,Erding – Ebersberg,1
+214,Erich Irlstorfer,,,CSU,214.0,Freising,0
+215,Katrin Staffler,@katrin_staffler,8.250199120830382e+17,CSU,215.0,Fürstenfeldbruck,1
+216,Reinhard Brandl,@reinhardbrandl,262730721.0,CSU,216.0,Ingolstadt,1
+217,Bernhard Loos,,,CSU,217.0,München-Nord,0
+218,Wolfgang Stefinger,@StefingerMdB,4866955749.0,CSU,218.0,München-Ost,1
+219,Michael Kuffer,@MichaelKuffer,4249342037.0,CSU,219.0,München-Süd,1
+220,Stephan Pilsinger,@StephPilsinger,8.199141599156673e+17,CSU,220.0,München-West/Mitte,1
+221,Florian Peter Hahn,@hahnflo,403735368.0,CSU,221.0,München-Land,1
+222,Daniela Ludwig,@DaniLudwigMdB,1.0198466050449368e+18,CSU,222.0,Rosenheim,1
+223,Alexander Gamal Radwan,@AlexanderRadwan,2831760211.0,CSU,223.0,Bad Tölz-Wolfratshausen – Miesbach,1
+224,Michael Hannes Kießling,@Kiessling_MdB,730314294.0,CSU,224.0,Starnberg – Landsberg am Lech,1
+225,Peter Ramsauer,,,CSU,225.0,Traunstein,0
+226,Alexander Dobrindt,,,CSU,226.0,Weilheim,0
+227,Thomas Erndl,@TErndl,2192588903.0,CSU,227.0,Deggendorf,1
+228,Florian Oßner,@Florian_Ossner,1294532364.0,CSU,228.0,Landshut,1
+229,Andreas Franz Scheuer,@AndiScheuer,50315139.0,CSU,229.0,Passau,1
+230,Max Straubinger,,,CSU,230.0,Rottal-Inn,0
+231,Alois Georg Josef Rainer,,,CSU,231.0,Straubing,0
+232,Alois Karl,,,CSU,232.0,Amberg,0
+233,Peter Aumer,@PeterAumer,348460907.0,CSU,233.0,Regensburg,1
+234,Karl Holmeier,,,CSU,234.0,Schwandorf,0
+235,Albert Rupprecht,,,CSU,235.0,Weiden,0
+236,Thomas Silberhorn,@SilberhornMdB,9.514892753124434e+17,CSU,236.0,Bamberg,1
+237,Silke Launert,@DrLaunert,4926993244.0,CSU,237.0,Bayreuth,1
+238,Hans Georg Michelbach,@hans_michelbach,8.242216462906163e+17,CSU,238.0,Coburg,1
+239,Hans-Peter Friedrich,,,CSU,239.0,Hof,0
+240,Emmi Zeulner,,,CSU,240.0,Kulmbach,0
+241,Artur Auernhammer,,,CSU,241.0,Ansbach,0
+242,Stefan Müller,@smuellermdb,17960911.0,CSU,242.0,Erlangen,1
+243,Christian Schmidt,,,CSU,243.0,Fürth,0
+244,Sebastian Brehm,@Brehm_inNBGNord,9.04304932257493e+17,CSU,244.0,Nürnberg-Nord,1
+245,Michael Frieser,@MichaelFrieser,4577700622.0,CSU,245.0,Nürnberg-Süd,1
+246,Marlene Mortler,,,CSU,246.0,Roth,0
+247,Andrea Lindholz,@AndreaLindholz,1446031532.0,CSU,247.0,Aschaffenburg,1
+248,Dorothee Bär,@DoroBaer,140821364.0,CSU,248.0,Bad Kissingen,1
+249,Alexander Hoffmann,,,CSU,249.0,Main-Spessart,0
+250,Anja Weisgerber,@anjaweisgerber,133770069.0,CSU,250.0,Schweinfurt,1
+251,Paul Lehrieder,,,CSU,251.0,Würzburg,0
+252,Volker Michael Ullrich,@VolkerUllrich,28446356.0,CSU,252.0,Augsburg-Stadt,1
+253,Hansjörg Durz,@Hansjoerg_Durz,1662533040.0,CSU,253.0,Augsburg-Land,1
+254,Ulrich Lange,@UlrichLange,68172699.0,CSU,254.0,Donau-Ries,1
+255,Georg Nüßlein,,,CSU,255.0,Neu-Ulm,0
+256,Gerhard (Gerd) Müller,,,CSU,256.0,Oberallgäu,0
+257,Stephan Stracke,,,CSU,257.0,Ostallgäu,0
+258,Stefan Kaufmann,@StefanKaufmann,51752254.0,CDU,258.0,Stuttgart I,1
+259,Karin Maag,@MaagKarin,1.0950234507905476e+18,CDU,259.0,Stuttgart II,1
+260,Marc Biadacz,@MBiadaczMdB,9.358150000060538e+17,CDU,260.0,Böblingen,1
+261,Markus Grübel,@GruebelMdb,7.966912900165837e+17,CDU,261.0,Esslingen,1
+262,Michael Hennrich,@MichaelHennric2,1.1322605273784892e+18,CDU,262.0,Nürtingen,1
+263,Hermann Färber,,,CDU,263.0,Göppingen,0
+264,Joachim Pfeiffer,,,CDU,264.0,Waiblingen,0
+265,Steffen Bilger,@SteffenBilger,23925041.0,CDU,265.0,Ludwigsburg,1
+266,Eberhard Gienger,,,CDU,266.0,Neckar-Zaber,0
+267,Alexander Throm,@alexander_throm,8.29056811974144e+17,CDU,267.0,Heilbronn,1
+268,Christian Alexander Stetten,@CvStetten,1334019378.0,CDU,268.0,Schwäbisch Hall – Hohenlohe,1
+269,Norbert Barthle,,,CDU,269.0,Backnang – Schwäbisch Gmünd,0
+270,Roderich Kiesewetter,@RKiesewetter,42698498.0,CDU,270.0,Aalen – Heidenheim,1
+271,Ingo Wellenreuther,,,CDU,271.0,Karlsruhe-Stadt,0
+272,Axel Fischer,@Axel_Fischer,160906608.0,CDU,272.0,Karlsruhe-Land,1
+273,Kai Whittaker,@Kai_Whittaker,2479436480.0,CDU,273.0,Rastatt,1
+274,Karl Lamers,,,CDU,274.0,Heidelberg,0
+275,Nikolas Löbel,@NikolasLoebel,143351769.0,CDU,275.0,Mannheim,1
+276,Alois Gerig,,,CDU,276.0,Odenwald – Tauber,0
+277,Stephan Harbarth,@stephanharbarth,56762889.0,CDU,277.0,Rhein-Neckar,1
+278,Olav Gutting,@olavgutting,58429842.0,CDU,278.0,Bruchsal – Schwetzingen,1
+279,Gunther Krichbaum,@GuntherKrichba3,1.161098384020824e+18,CDU,279.0,Pforzheim,1
+280,Hans-Joachim Fuchtel,@fuchtel,66750542.0,CDU,280.0,Calw,1
+281,Matern Bieberstein,,,CDU,281.0,Freiburg,0
+282,Armin Schuster,@armin_schuster,395912134.0,CDU,282.0,Lörrach – Müllheim,1
+283,Peter Siegfried Weiß,@PeterWeissMdB,54202670.0,CDU,283.0,Emmendingen – Lahr,1
+284,Wolfgang Schäuble,,,CDU,284.0,Offenburg,0
+285,Volker Kauder,,,CDU,285.0,Rottweil – Tuttlingen,0
+286,Thorsten Frei,@thorsten_frei,1.1815985785082143e+18,CDU,286.0,Schwarzwald-Baar,1
+287,Andreas Jung,,,CDU,287.0,Konstanz,0
+288,Felix Schreiner,@felixschreiner,162398888.0,CDU,288.0,Waldshut,1
+289,Michael Donth,,,CDU,289.0,Reutlingen,0
+290,Annette Widmann-Mauz,@AWidmannMauz,3351905747.0,CDU,290.0,Tübingen,1
+291,Ronja Kemmer,@RonjaKemmer,2405039875.0,CDU,291.0,Ulm,1
+292,Josef Rief,,,CDU,292.0,Biberach,0
+293,Lothar Riebsamen,,,CDU,293.0,Bodensee,0
+294,Axel Müller,,,CDU,294.0,Ravensburg,0
+295,Thomas Bareiß,@Thomas_Bareiss,2797812265.0,CDU,295.0,Zollernalb – Sigmaringen,1
+296,Josephine Loulou Ortleb,@joloulou,21618829.0,SPD,296.0,Saarbrücken,1
+297,Peter Altmaier,@peteraltmaier,378693834.0,CDU,297.0,Saarlouis,1
+298,Nadine Schön,@NadineSchoen,41840905.0,CDU,298.0,St. Wendel,1
+299,Markus Alexander Uhl,@uhl_markus,1391875208.0,CDU,299.0,Homburg,1
