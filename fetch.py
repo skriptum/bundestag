@@ -6,6 +6,7 @@ import configparser
 import json
 import datetime
 from textblob_de import TextBlobDE as TextBlob
+
 #%%
 
 #function for auth with api
@@ -24,6 +25,70 @@ def api_auth(config_file = "config.ini"):
     interface = tweepy.API(app_auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     return interface
 
+api = api_auth()
+#%%
+#functions to get user data
+
+#get users from files
+def get_users_from_file(path_for_files = "/Users/code/Desktop/bundestag/partei/"):
+
+    """ get the users located in the subdirectory in txt files
+    with the name of the file being their party """
+
+    dict = {}
+    files = os.listdir(path_for_files)[1:]
+    for parteifile in files:
+        with open(path_for_files + parteifile) as f:
+            for line in f:
+                line =  line.strip("\n")
+                dict[line] = parteifile[:-4]
+    
+    return dict
+
+#get twitter data about a specified user
+def get_user_info(username):
+    """ Func to extract data from a given twitter username
+    """
+    try:
+        target = api.get_user(id = username)
+    except:
+        return print("failed:" + username)
+    
+    #some general info about the user
+    name = target.name
+    creation_date = target.created_at
+    desc = target.description
+    id = target.id
+    num_followers = target.followers_count
+    num_following = target.friends_count
+    num_tweets = target.statuses_count
+
+    return {"name_id": username,
+        "name":name, "created_at":creation_date, "desc":desc, "u_id": id,
+        "num_followers":num_followers, "num_following":num_following, 
+        "num_tweets": num_tweets
+    }
+
+#get a table for twitter data from inputted users
+def user_list(dictionary):
+    """ takes as input a list of usernames and their party affiliation,
+        returns a dataframe with info about twitter accounts extracted
+     """
+
+    central_df = pd.DataFrame(
+        columns = ["name_id", 'name', 'created_at', 'desc', 'u_id', 'num_followers', 'num_following',
+       'num_tweets', "partei"]
+    )
+
+    for user, partei in dictionary.items():
+        extracted = get_user_info(user)
+        central_df = central_df.append(extracted, ignore_index = True)
+        central_df.partei[-1:] = partei
+    return central_df
+
+
+#%%
+#Functions to ge tweet data
 
 #function to get 20 tweets from the given ids
 def tweet_getter(list_of_ids, count = 20 ):
@@ -116,7 +181,7 @@ def tweet_check(status):
 
     
     return {
-        "user": user, "t_text": t_text, "t_id": t_id, 
+        "name_id": user, "t_text": t_text, "t_id": t_id, 
         "t_date": t_date, "t_hashtags": t_hashtags, 
         "t_isrt": t_isrt, "t_isrpl": t_isrpl, "other_users": other_users
     }
@@ -129,7 +194,7 @@ def tweet_parser(list_of_status_objs):
     returns a central  dataframe 
     """
     tweet_df = pd.DataFrame(columns = 
-        ["user","t_text", "t_id", "t_date", "t_hashtags",
+        ["name_id","t_text", "t_id", "t_date", "t_hashtags",
          "t_isrt", "t_isrpl", "other_users"]
     )
     for status in list_of_status_objs:
@@ -145,7 +210,10 @@ def metricate(tweetdf):
      one user and calculates some metrics for it.
      returns these values as dict
     """
-    user = tweetdf.user[0]
+    if len(tweetdf) == 0:
+        return None
+
+    user = tweetdf.name_id[0]
     #percent of retweets and replies of total tweets
     retweet_rate = tweetdf.t_isrt.mean()
     replie_rate =  tweetdf.t_isrpl.mean()
@@ -171,7 +239,7 @@ def metricate(tweetdf):
         sentiments.append(sent)
     avg_sent = np.mean(sentiments)
 
-    return {"user": user,
+    return {"name_id": user,
         "retweet_rate": retweet_rate, "replie_rate": replie_rate,
         "ts_perday": ts_perday, "hashtags":hashtags, "avg_sent": avg_sent
     }
@@ -179,39 +247,40 @@ def metricate(tweetdf):
 
 
 #%%
+#lets do this part1, get all users
 
-api = api_auth()
-
-df = pd.read_csv("data/accounts_data.csv")
-df = df.drop(columns = "Unnamed: 0")
-
-id_list = df.name_id 
-id_list = id_list.values
+user_dict = get_users_from_file() #get the users from the files
 
 
-
-#%%
-#lets get the data
-
-#this returns an incredibly large JSON, 
-#we want to extract the tweet text and possibly other metadata
-tweet_json = tweet_getter(id_list)
+df = user_list(user_dict)  #get the dataframe with user data
 
 
+id_list = df.name_id #built the list of ids
+id_list = id_list.values 
+
+#part2 get all tweets
+tweet_json = tweet_getter(id_list) #gets the json files for all the tweets
+
+
+#build the dataframe for user metrics
 metric_df = pd.DataFrame(columns = 
-    ["user", "retweet_rate", "replie_rate", "ts_perday", "hashtags", "avg_sent"]
+    ["name_id", "retweet_rate", "replie_rate", "ts_perday", "hashtags", "avg_sent"]
     )
 
+
+#get user metrics for all users
 for obj in tweet_json:
     t_df = tweet_parser(obj) #should i store all tweets somewhere ? !!
     metrics = metricate(t_df)
     metric_df = metric_df.append(metrics, ignore_index = True)
 
+metric_df["name_id"] = "@"+ metric_df.name_id
 
-# wanted: building a database to sotre all tweets, which is searchable
-
-## SELECT * FROM TABLE WHERE USER  == ...
-#ich will alle tweets eines users herausfiltern
-
-
+a_df = pd.merge(df, metric_df, how = "left", on = "name_id")
 # %%
+# possible metrics 
+#       'retweet_rate', 'replie_rate', 
+#       'ts_perday', 'hashtags',
+#       'avg_sent', 
+#
+#       num_followers, num_following, created_at
