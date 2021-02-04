@@ -19,9 +19,9 @@ def api_auth(config_file = "config.ini"):
     consumer_key = keys["con_key"]
     consumer_secret = keys["con_secret"]
 
-    auth = tweepy.AppAuthHandler(consumer_key,consumer_secret)
+    app_auth = tweepy.AppAuthHandler(consumer_key,consumer_secret)
 
-    interace = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    interface = tweepy.API(app_auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     return interface
 
 
@@ -207,9 +207,6 @@ for obj in tweet_json:
     metrics = metricate(t_df)
     metric_df = metric_df.append(metrics, ignore_index = True)
 
-
-
-#df.to_csv("test.csv", index = False)
 
 # wanted: building a database to sotre all tweets, which is searchable
 
