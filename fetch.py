@@ -5,6 +5,7 @@ import numpy as np
 import configparser
 import json
 import datetime
+import os
 from textblob_de import TextBlobDE as TextBlob
 
 #%%
@@ -82,8 +83,8 @@ def user_list(dictionary):
 
     for user, partei in dictionary.items():
         extracted = get_user_info(user)
+        extracted["partei"] = partei
         central_df = central_df.append(extracted, ignore_index = True)
-        central_df.partei[-1:] = partei
     return central_df
 
 
