@@ -286,6 +286,9 @@ a_df = pd.merge(df, metric_df, how = "left", on = "name_id")
 #calculate tweet_rate ( if it is not a retweet or a replie)
 a_df["tweet_rate"] = 1 - (a_df.retweet_rate + a_df.replie_rate)
 
+#get the aktivity of every mdb
+labels = ["inaktiv", "wenig aktiv", "aktiv", "sehr aktiv"]
+a_df["aktivität"] = pd.qcut(a_df.ts_perday, q = 4, labels = labels)
 
 
 a_df.to_csv("data/accounts_data.csv")
