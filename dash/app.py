@@ -1,9 +1,11 @@
+
 #file for everything related to exploration and graphs
 
 import pandas as pd
-import plotly.express as px
 import json
 import configparser
+
+import plotly.express as px
 
 import dash
 import dash_core_components as dcc 
@@ -32,7 +34,6 @@ bg_col = "#F9F9F9"
 font_col = "black"
 
 
-
 def mapbox_auth():
     #authenticate with the mapbox API
     config = configparser.ConfigParser()		
@@ -47,7 +48,7 @@ def figure_generator(dataframe, color_column = "twitter"):
     c_map = {
             "CDU": "black",
             "SPD": "crimson",
-            "GRÜNE": "limegreen",
+            "GRueNE": "limegreen",
             "AfD": "cornflowerblue",
             "FDP": "gold",
             "DIE LINKE": "brown",
@@ -188,6 +189,7 @@ def get_treemap(dataframe):
     fig.update_traces(hovertemplate = " Follower: %{customdata[0]}")
 
     return fig
+
 
 
 mapbox_auth()
