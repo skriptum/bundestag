@@ -123,17 +123,24 @@ body {
   margin: 0%;
 }
 .pretty_container {
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: #F9F9F9;
   margin: 10px;
-  padding: 15px;
+  padding: 10px;
   position: relative;
-  box-shadow: 2px 2px 2px rgb(211, 211, 211);
+  box-shadow: 2px 2px 2px #F9F9F9;
+  border: 1px solid;
 }
 
 .bare_container {
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
+  background-color: #F9F9F9;
+  box-shadow: 1px 1px 1px lightskyblue;
+  padding: 3px;
+  position: relative;
+  border: 1px solid;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  
 }
 
 .data_text {
