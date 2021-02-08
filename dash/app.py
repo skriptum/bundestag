@@ -180,8 +180,8 @@ def color_bar(df, col, num = 10):
     fig.update_traces(hovertemplate = "%{customdata[0]} <br> Anzahl: %{customdata[1]} ", 
         text = list(range(1,11)), textposition= "auto")
 
-    fig.update_xaxes(visible= False)
-    fig.update_yaxes(visible= False)
+    fig.update_xaxes(visible= False, fixedrange = True)
+    fig.update_yaxes(visible= False, fixedrange = True)
     return fig
 
 #returns treemap from party followers
@@ -249,15 +249,15 @@ def horizontal(dataframe, partei):
     )
     fig.add_trace(
         Bar(x = [zahl], marker = dict(color = [c_map[partei]]), hovertemplate = "MdBs mit Twitter: %{x}", 
-        text = f"Prozent an Abgeordneten mit Twitter: {prozent} %", textposition = "auto")
+        text = f"{partei}-Mitglieder mit Twitter: {prozent} %", textposition = "auto")
     )
 
     margins = {"t": 0, "r": 0, "l": 10, "b": 0}
     fig.update_layout(barmode = "overlay", margin = margins,
         plot_bgcolor= bg_col, showlegend= False)
 
-    fig.update_yaxes(visible = False)
-    fig.update_xaxes(visible = False)
+    fig.update_yaxes(visible = False, fixedrange = True)
+    fig.update_xaxes(visible = False, fixedrange = True)
     return fig
 
 #positionsbestimmer
@@ -386,12 +386,12 @@ app.layout = html.Div( children = [
                         {"label":"anzahl tweets", "value": "num_tweets" },
                         {"label":"abonnenten", "value": "num_followers"},
                         {"label":"abonniert", "value": "num_following"},
-                    ], value = "num_tweets"
+                    ], value = "num_tweets", clearable = False,
                 ), 
 
                 dcc.Graph(id = "bar1",
                     #figure = color_bar(t_df, "num_tweets"),
-                    config = {"displayModeBar": False}
+                    config = {"displayModeBar": False, "responsive": False, "displaylogo": False}
                 ),
 
                 html.Br(),
@@ -401,12 +401,12 @@ app.layout = html.Div( children = [
                         {"label":"Kommunizierer", "value": "replie_rate"},
                         {"label":"Meinungsmacher", "value": "tweet_rate"},
                         {"label":"Verbreiter", "value":"retweet_rate" },
-                    ], value = "replie_rate",
+                    ], value = "replie_rate", clearable = False,
                 ),
 
                 dcc.Graph(id = "bar2",
                     #figure = color_bar(t_df, "replie_rate"),
-                    config = {"displayModeBar": False}
+                    config = {"displayModeBar": False, "displaylogo": False, "responsive": False}
                 ),
             
             ]),
@@ -417,20 +417,22 @@ app.layout = html.Div( children = [
         html.Div(className = "four columns pretty_container", children = [
 
             html.Div(children = [
-                dcc.Graph(
-                    #figure = figure_generator(df, "partei_x")
+                dcc.Graph(id = "wahl_map",
+                    figure = figure_generator(df, "partei_x"),
+                    config = {"displaylogo": False}
                 )
             ]),
 
             html.Div(children = [
-                dcc.Graph(
-                    figure = get_treemap(t_df)
+                dcc.Graph(id = "tree_map",
+                    figure = get_treemap(t_df),
+                    config = {"displaylogo": False}
                 )
             ]),
 
             html.Div(children = [
-                dcc.Graph(
-                    figure = horizontal(t_df, "spd"), config = {"responsive": False, "displayModeBar": False}
+                dcc.Graph(id = "horizontal",
+                config = {"responsive": False, "displayModeBar": False}
                 )
             ])
 
@@ -443,6 +445,7 @@ app.layout = html.Div( children = [
             html.Div(className = "pretty_container", children = [
                 html.H6("Nutzer wählen"),
                 html.B("Ausgewählter Nutzer"),
+                html.Div(id = "output-test"),
 
             ]),
 
@@ -456,7 +459,7 @@ app.layout = html.Div( children = [
     ]),
 
 ])
-
+#dropwdown on bars callback
 @app.callback(
     Output("bar1", "figure"),
     Output("bar2", "figure"),
@@ -470,6 +473,35 @@ def update_bars(val1, val2):
     figure2 = color_bar(t_df, val2)
 
     return figure1, figure2
+
+#user select callback
+@app.callback(
+    Output("output-test", "children"),
+    Input("wahl_map", "clickData"),
+)
+def user_test(karte, tree):
+    try:
+        t = karte["points"][0]["customdata"][1]
+    except:
+        t = "select user"
+    
+    return [html.P(t), html.P(t2)]
+
+#treemap callback
+@app.callback(
+    Output("horizontal", "figure"),
+    Input("tree_map", "clickData"),
+)
+def update_horizontal(clickData):
+    try:
+        p = clickData["points"][0]["customdata"][1]
+        if p == '(?)':
+            p = "bundestag"
+    except:
+        p = "bundestag"
+
+    figure = horizontal(t_df, p)
+    return figure
 
 if __name__ == "__main__":
     app.run_server(debug=True)
