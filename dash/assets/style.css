@@ -134,12 +134,10 @@ body {
 
 .bare_container {
   background-color: #F9F9F9;
-  box-shadow: 1px 1px 1px lightskyblue;
-  padding: 3px;
+  padding: 6px;
   position: relative;
   border: 1px solid;
-  border-radius: 3px;
-  margin-bottom: 5px;
+  margin: 3px;
   
 }
 

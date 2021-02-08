@@ -4,6 +4,7 @@
 import pandas as pd
 import json
 import configparser
+from random import randint
 
 import plotly.express as px
 from plotly.graph_objects import Bar 
@@ -12,6 +13,7 @@ import dash
 import dash_core_components as dcc 
 import dash_html_components as html
 import dash_bootstrap_components as dbc 
+from dash.dependencies import Input, Output
 
 
 
@@ -176,7 +178,7 @@ def color_bar(df, col, num = 10):
         showlegend = False
     )
     fig.update_traces(hovertemplate = "%{customdata[0]} <br> Anzahl: %{customdata[1]} ", 
-        text = sorted["name_id"], textposition= "auto")
+        text = list(range(1,11)), textposition= "auto")
 
     fig.update_xaxes(visible= False)
     fig.update_yaxes(visible= False)
@@ -258,6 +260,22 @@ def horizontal(dataframe, partei):
     fig.update_xaxes(visible = False)
     return fig
 
+#positionsbestimmer
+def get_pos(search_column, value):
+    """function to get position of a value in column and a corespoding color """
+    column = search_column.sort_values(ascending = False, ignore_index = True)
+    i = column[column == value].index[0]
+    l = len(column)
+
+    colors = ["#2B8B0F","#A7C306","#E0CD20","#D58B10","#CF492D"]
+
+    #returns the füfntel in which the value lies to index the color list
+    cindex = int(i/(l/5))
+    c = colors[cindex]
+
+    text = f"#{i} von {l}"
+    return (text,c)
+
 #user div generation
 def user_generator(df, user):
     row = t_df[t_df.name_id == user]
@@ -265,47 +283,69 @@ def user_generator(df, user):
     sent = sentiment(row)
     #hashtags =  row.hashtags.split(", ") #hashtags from a user row
 
+
+
+    #poses = [get_pos()]
+    pos = get_pos(t_df.num_followers, row.num_followers.item())
+
     div = html.Div(children = [
         html.Div(className = "pretty_container", children = [
             html.H5(row.name),
             html.B(row.name_id),
             html.P(row.desc),
 
-            html.Div(className = "four columns bare_container", children = [
-                html.B("followers:"),
-                html.P(row.num_followers)
+            #first row
+            html.Div(className = "row", children = [
+                html.Div(className = "four columns bare_container", children = [
+                    html.B("followers:"),
+                    html.P(row.num_followers),
+                    html.P(pos[0]),
+                ], style = {"color": pos[1]}),
+
+                html.Div(className = "four columns bare_container", children = [
+                    html.B("following:"),
+                    html.P(row.num_following)
+                ]),
+
+                html.Div(className = "one-third column bare_container", children = [
+                    html.B("Tweets"),
+                    html.P(row.num_tweets)
+                ]),
             ]),
 
-            html.Div(className = "four columns bare_container", children = [
-                html.B("following:"),
-                html.P(row.num_following)
+            #second row
+            html.Div(className = "row", children = [
+                html.Div(className = "four columns bare_container", children = [
+                    html.B("tweets/tag:"),
+                    html.P(round(row.ts_perday, 2)),
+                ]),
+
+                html.Div(className = "four columns bare_container", children = [
+                    html.B("erstelldatum:"),
+                    html.P(row.created_at.item()[:10]),
+                ]),
+
+                html.Div(className = "one-third column bare_container", children = [
+                    html.B("Laune"),
+                    html.P(sent[0]),
+                    #html.P(sent[1])
+                ]),
             ]),
 
-            html.Div(className = "one-third column bare_container", children = [
-                html.B("Tweets"),
-                html.P(row.num_tweets)
-            ]),
-            html.B("Erstellungsdatum:"),
-            html.P(row.created_at),
-
-
-        ]),
-
-        html.Div(className = "pretty_container", children = [
+            #zuletzt aktualisiert
+            html.Div(className = "twelve columns bare_container", children = [
                 html.B(art[0]),
                 html.P(art[1]),
-                
             ]),
 
-        html.Div(className = "pretty_container", children = [
-                html.B(sent[0]),
-                html.P(sent[1]),
-                
-            ]),
+            html.P(f"zuletzt aktualisiert: {randint(10,24)}:{randint(10,60)}")
+        ]),
+
+
     ])
     return div
 
-def get_position(column, row):
+
     
 
 
@@ -319,13 +359,14 @@ df = pd.merge(wahl_df, t_df, how = "inner", on="name_id")
 app = dash.Dash(
     __name__, title = "twitter", meta_tags=[{"name": "viewport", "content": "width=device-width"}]
     )
-server = app.server
+#server = app.server
 
 app.layout = html.Div( children = [
 
     
     html.Div(className = "row", children = [
 
+        #first row
         html.Div(className = "four columns", children = [
 
             html.Div(className = "pretty_container",children = [
@@ -340,27 +381,44 @@ app.layout = html.Div( children = [
 
                 html.H1("Leaderboards"),
 
-                html.P("Tweets / Tag"),
-                dcc.Graph(
-                    figure = color_bar(t_df, "ts_perday"),
+                dcc.Dropdown(id = "drop1", 
+                    options = [
+                        {"label":"anzahl tweets", "value": "num_tweets" },
+                        {"label":"abonnenten", "value": "num_followers"},
+                        {"label":"abonniert", "value": "num_following"},
+                    ], value = "num_tweets"
+                ), 
+
+                dcc.Graph(id = "bar1",
+                    #figure = color_bar(t_df, "num_tweets"),
                     config = {"displayModeBar": False}
                 ),
 
-                html.P("Antwortrate"),
-                dcc.Graph(
-                    figure = color_bar(t_df, "replie_rate")
+                html.Br(),
+
+                dcc.Dropdown(id = "drop2",
+                    options = [
+                        {"label":"Kommunizierer", "value": "replie_rate"},
+                        {"label":"Meinungsmacher", "value": "tweet_rate"},
+                        {"label":"Verbreiter", "value":"retweet_rate" },
+                    ], value = "replie_rate",
+                ),
+
+                dcc.Graph(id = "bar2",
+                    #figure = color_bar(t_df, "replie_rate"),
+                    config = {"displayModeBar": False}
                 ),
             
             ]),
-
-            
+         
         ]),
 
+        #second row
         html.Div(className = "four columns pretty_container", children = [
 
             html.Div(children = [
                 dcc.Graph(
-                    figure = figure_generator(df, "partei_x")
+                    #figure = figure_generator(df, "partei_x")
                 )
             ]),
 
@@ -379,15 +437,17 @@ app.layout = html.Div( children = [
 
         ], style = {"padding": "0px"}),
         
+        #third row
         html.Div(className = "four columns", children = [
 
-            html.Div(children = [
+            html.Div(className = "pretty_container", children = [
+                html.H6("Nutzer wählen"),
                 html.B("Ausgewählter Nutzer"),
 
-                html.Div(children = [
-                    user_generator(t_df, "@johannesvogel")
-                ]),
+            ]),
 
+            html.Div(children = [
+                user_generator(t_df, "@johannesvogel")
 
             ]),
         ]),
@@ -396,6 +456,20 @@ app.layout = html.Div( children = [
     ]),
 
 ])
+
+@app.callback(
+    Output("bar1", "figure"),
+    Output("bar2", "figure"),
+
+    Input("drop1", "value"),
+    Input("drop2", "value"),
+)
+
+def update_bars(val1, val2):
+    figure1 = color_bar(t_df, val1)
+    figure2 = color_bar(t_df, val2)
+
+    return figure1, figure2
 
 if __name__ == "__main__":
     app.run_server(debug=True)
