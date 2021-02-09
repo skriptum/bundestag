@@ -119,16 +119,16 @@ body {
   font-weight: 400;
   font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgb(50, 50, 50);
-  background-color: #e0e4e6;
-  margin: 0%;
+  background-color: #000000;
+  margin: 5px;
 }
 .pretty_container {
   border-radius: 3px;
   background-color: #F9F9F9;
-  margin: 10px;
+  margin-bottom: 5px;
   padding: 10px;
   position: relative;
-  box-shadow: 2px 2px 2px #F9F9F9;
+  box-shadow: 2px 2px 2px #dadada00;
   border: 1px solid;
 }
 

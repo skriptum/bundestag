@@ -99,7 +99,9 @@ def get_hashtags(dataframe):
 
     """ extract the hastgas out of a given dataframe , not a row
         returns the all hashtags and their counts"""
+    colors = {
 
+    }
     hs = dataframe.hashtags.dropna()
     hs = hs.apply(lambda x: x.split(", "))
     hs = hs.explode()
@@ -108,7 +110,13 @@ def get_hashtags(dataframe):
     hs = hs.mask(hs.index == "")
     hs = hs.dropna()
 
-    return hs
+    texts = []
+    for text, value in hs[:10].items():
+        t = html.P(f" #{text}: {value} Erwähnungen", style = {"margin-bottom": "-5px"})
+        texts.append(t)
+
+    div = html.Div(children = texts)
+    return div
 
 #kategorisierer 
 def nutzungsart(t_df, user_row):
@@ -156,15 +164,11 @@ def sentiment(user_row):
         bez = "neutral"
     return (bez,text, sent_colors[bez])
 
-#helper function for color bar 
-def get_top(df, col):
-    df = df.sort_values(by = col, ascending = False)
-    return df
 
 #function returns a bar with the top users in the specified metric
-def color_bar(df, col, c_map):
+def color_bar(df, col, c_map, type = "anzahl"):
 
-    sorted = get_top(df, col)
+    sorted = df.sort_values(by = col, ascending = False)
     sorted = sorted[sorted.num_tweets > 5]
     sorted = sorted.reset_index()
     sorted = sorted[:10]
@@ -184,8 +188,12 @@ def color_bar(df, col, c_map):
         plot_bgcolor = bg_col, 
         showlegend = False
     )
-    fig.update_traces(hovertemplate = "%{customdata[0]} <br> Anzahl: %{customdata[1]} ", 
-        texttemplate = "%{customdata[0]}", textposition= "auto")
+    if type == "anzahl":
+        fig.update_traces(hovertemplate = "%{customdata[0]} <br> Anzahl: %{customdata[1]} ", 
+            texttemplate = "%{customdata[0]}", textposition= "auto")
+    elif type == "prozent":
+        fig.update_traces(hovertemplate = "%{customdata[0]} <br> Anteil: %{customdata[1]} ", 
+            texttemplate = "%{customdata[0]}", textposition= "auto")
 
     fig.update_xaxes(visible= False, fixedrange = True)
     fig.update_yaxes(visible= False, fixedrange = True)
@@ -252,7 +260,7 @@ def horizontal(dataframe, partei, c_map):
 def get_pos(search_column, value):
     """function to get position of a value in column and a corespoding color """
     column = search_column.sort_values(ascending = False, ignore_index = True)
-    i = column[column == value].index[0]
+    i = column[column == value].index[0]+1
     l = len(column)
 
     colors = ["#2B8B0F","#A7C306","#E0CD20","#D58B10","#CF492D"]
@@ -296,7 +304,7 @@ def user_generator(df, user, c_map):
         hs_nested = Counter(hs_list).most_common(5)
         childs = [html.B("Hashtags"),]
         for tup in hs_nested:
-            childs.append(html.P(f"{tup[0]}: {tup[1]} Mal "))
+            childs.append(html.P(f"#{tup[0]}: {tup[1]} Mal", style = {"margin-bottom": 0}))
 
         h_div = html.Div(className = "bare_container", children = childs)
         
@@ -365,7 +373,7 @@ def user_generator(df, user, c_map):
             ]),
 
             h_div,
-            html.P("yeet")
+            html.P(f"zuletzt aktualisiert {pd.Timestamp.now().date()}")
         ]),
 
 
@@ -391,17 +399,19 @@ app.layout = html.Div( children = [
         #first row
         html.Div(className = "four columns", children = [
 
+            #Beschreibung des projekts
             html.Div(className = "pretty_container",children = [
                 html.H1("Bundestwitter"),
                 html.P("Fast 80% der Abgeordneten haben Twitter, aber nur 5% der Deutschen. \
                     Stellt sich die Frage, was die da eigentlich machen. Hier ist die Antwort"
                 )
-            ], #style = {"height": "50%"}
+            ],
             ),
 
+            #Container für bestenlisten
             html.Div(className = "pretty_container", children = [
 
-                html.H4("Leaderboards"),
+                html.H4("Bestenlisten"),
 
                 dcc.Dropdown(id = "drop1", 
                     options = [
@@ -432,12 +442,18 @@ app.layout = html.Div( children = [
                 ),
             
             ]),
+            #container für hashtags
+            html.Div(className = "pretty_container", children = [
+                html.H4("Hashtags"),
+                get_hashtags(t_df)
+            ]),
          
         ]),
 
         #second row
         html.Div(className = "four columns", children = [
 
+            #Kartencontainer
             html.Div(className = "pretty_container", children = [
                 dcc.Graph(id = "wahl_map",
                     figure = figure_generator(df, "partei_x"),
@@ -445,16 +461,17 @@ app.layout = html.Div( children = [
                 )
             ], style = {"padding": "0px"}),
 
+            #Container für Treemap
             html.Div(className = "pretty_container", children = [
                 html.H4("Followervergleich", style = {"margin": 10, "margin-bottom": 0, "margin-top": 0}),
+                dcc.Graph(id = "horizontal",
+                config = {"responsive": False, "displayModeBar": False}
+                ),
                 dcc.Graph(id = "tree_map",
                     figure = get_treemap(t_df, c_map),
                     config = {"displaylogo": False}
                 ),
             
-                dcc.Graph(id = "horizontal",
-                config = {"responsive": False, "displayModeBar": False}
-                )
             ], style = {"padding": "0px"}),
 
 
@@ -463,16 +480,21 @@ app.layout = html.Div( children = [
         #third row
         html.Div(className = "four columns", children = [
 
+            #Nutzerauswahl
             html.Div( className = "pretty_container", children = [
-                html.H4("nutzer"),
-                dcc.Input(id = "text-input", 
-                    type = "text", placeholder = "schreiben"
-                ),
-                html.Button("submit", id = "submit-button", n_clicks = 0),
+                html.H4("Nutzer auswählen"),
 
+                dcc.Input(id = "text-input", 
+                    type = "text", placeholder = "Nutzername eingeben"
+                ),
+                html.Button("Suche", id = "submit-button", n_clicks = 0),
+                html.Br(),
+
+                html.B("ausgewählter Nutzer:"),
                 html.Div(id = "select-out"),
             ]),
 
+            #Nutzerdarstellung
             html.Div(id = "user-div", className = "pretty_container", children = [
                 user_generator(t_df, "@johannesvogel", c_map)
 
@@ -498,8 +520,8 @@ app.layout = html.Div( children = [
 )
 
 def update_bars(val1, val2):
-    figure1 = color_bar(t_df, val1, c_map)
-    figure2 = color_bar(t_df, val2, c_map)
+    figure1 = color_bar(t_df, val1, c_map, "anzahl")
+    figure2 = color_bar(t_df, val2, c_map, "prozent")
 
     return figure1, figure2
 
@@ -510,24 +532,33 @@ def update_bars(val1, val2):
 
     Input("wahl_map", "clickData"),
     Input("submit-button", "n_clicks"),
+    Input("bar1", "clickData"),
+    Input("bar2", "clickData"),
     State("text-input", "value"),
 
+
 )
-def user_select(map_click, clicked, text_in):
+def user_select(map_click, submit_click, bar1_click, bar2_click, text_in):
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
 
     if "wahl_map" in changed_id:
         user = map_click["points"][0]["customdata"][1]
-        profil = user_generator(t_df, user, c_map)
+        
 
     elif "submit-button" in changed_id:
         user = text_in
-        profil = user_generator(t_df, user, c_map)
+        
+
+    elif "bar1" in changed_id:
+        user = bar1_click["points"][0]["customdata"][0]
+
+    elif "bar2" in changed_id:
+        user = bar2_click["points"][0]["customdata"][0]
 
     else:
         user = t_df.name_id.sample().item()
-        profil = user_generator(t_df, user, c_map)
-
+        
+    profil = user_generator(t_df, user, c_map)
     out = f"{user}"
     return profil, out
 
