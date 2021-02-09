@@ -4,7 +4,7 @@
 import pandas as pd
 import json
 import configparser
-from random import randint
+from collections import Counter
 
 import plotly.express as px
 from plotly.graph_objects import Bar 
@@ -13,14 +13,13 @@ import dash
 import dash_core_components as dcc 
 import dash_html_components as html
 import dash_bootstrap_components as dbc 
-from dash.dependencies import Input, Output
-
+from dash.dependencies import Input, Output, State
 
 
 #read in the data
 
 #shapefiles as geojson
-with open("data/geometrie.geojson") as f:
+with open("data/geometrie2.geojson") as f:
     geojs = json.load(f)
 
 #wahlkreise
@@ -33,7 +32,18 @@ t_df = t_df.drop(columns = ["Unnamed: 0"])
 #t_df = t_df.set_index("name_id")
 
 bg_col = "#F9F9F9"
-font_col = "black"
+
+c_map = {
+            '(?)':"#F7F7F7",
+            "bundestag": "rgba(246, 232, 223, 0.89)",
+            "cdu": "rgba(37, 35, 33, 0.8)",
+            "spd": "rgba(238, 12, 45, 0.8)",
+            "gruene": "rgba(169, 218, 20, 0.8)",
+            "afd": "rgba(76, 156, 227, 0.8)",
+            "fdp": "rgba(255, 217, 15, 0.8)",
+            "linke": "rgba(196, 25, 25, 0.8)",
+            "csu": "rgba(153, 177, 187, 0.8)",
+        }
 
 
 def mapbox_auth():
@@ -60,13 +70,13 @@ def figure_generator(dataframe, color_column = "twitter"):
         dataframe, geojson = geojs, 
         featureidkey = "properties.WKR_NR", 
         locations = "WKR_NR", 
-        custom_data= ["WKR_NR", "name_id", color_column],
+        custom_data= ["wahlkreis", "name_id", color_column],
         color = color_column, color_discrete_map=c_map,
-        #color_discrete_sequence=["green", "red"],
+        opacity=0.5,
         )
 
     fig.update_traces(
-        hovertemplate = "<b>Wahlkreis : %{customdata[0]}</b>  <br>Vertreter: %{customdata[1]} <br> partei: %{customdata[2]} "
+        hovertemplate = "<b>Abgeordneter : %{customdata[1]}</b>  <br>%{customdata[0]} <br>Partei: %{customdata[2]} "
     )
 
 
@@ -110,15 +120,15 @@ def nutzungsart(t_df, user_row):
     limit_3 = t_df.replie_rate.describe()["75%"] # kommunizierer
 
     if user_row.replie_rate.item() > limit_3:
-        text = f"{user_row.replie_rate.item() * 100}% der tweets sind antworten auf andere Nutzern"
+        text = f"{round(user_row.replie_rate.item() * 100)}% der tweets sind antworten auf andere Nutzern"
         return ("Kommunizierer", text )
 
     elif user_row.retweet_rate.item() > limit_2:
-        text = f"{user_row.retweet_rate.item() * 100}% der tweets sind retweets von anderen Nutzern"
+        text = f"{round(user_row.retweet_rate.item() * 100)}% der tweets sind retweets von anderen Nutzern"
         return ("Verbreiter", text)
 
     elif user_row.tweet_rate.item() > limit_1:
-        text = f"{user_row.tweet_rate.item() * 100}% der tweets sind eigene Meinungen"
+        text = f"{round(user_row.tweet_rate.item() * 100)}% der tweets sind eigene Meinungen"
         return ("Meinungsmacher", text)
 
     else:
@@ -128,17 +138,23 @@ def nutzungsart(t_df, user_row):
 #
 def sentiment(user_row):
     sent = user_row.avg_sent.item()
+
+    sent_colors = {
+        "Gutmütig": "#2B8B0F",
+        "Grummel": "CF492D",
+        "neutral": "#f0ead6"
+    }
     if sent > 0.1:
-        text = "Tweets sind im Schnitt eher gutgelaunt"
+        text = "∅ eher gutgelaunt"
         bez = "Gutmütig"
 
-    elif sent < -0.1:
-        text = "Tweets sind im Schnitt eher schlechtgelaunt"
-        bez = "Grummen"
+    elif sent < -0.5:
+        text = "∅ eher schlechtgelaunt"
+        bez = "Grummel"
     else:
-        text = "Tweets sind meistens neutral oder schwer einordbar"
+        text = "neutral /nicht einordbar"
         bez = "neutral"
-    return (bez,text)
+    return (bez,text, sent_colors[bez])
 
 #helper function for color bar 
 def get_top(df, col):
@@ -146,57 +162,38 @@ def get_top(df, col):
     return df
 
 #function returns a bar with the top users in the specified metric
-def color_bar(df, col, num = 10):
+def color_bar(df, col, c_map):
 
     sorted = get_top(df, col)
     sorted = sorted[sorted.num_tweets > 5]
     sorted = sorted.reset_index()
-    sorted = sorted[:num]
+    sorted = sorted[:10]
     
     margins = {"t": 0, "r": 0, "l": 0, "b": 0}
-    c_map = {
-        "cdu": "black",
-        "spd": "#ff3333",
-        "gruene": "limegreen",
-        "afd": "cornflowerblue",
-        "fdp": "gold",
-        "linke": "#b30000",
-        "csu": "dimgray",}
     
     fig = px.bar(
         sorted, y = col, color="partei", #to change layout to quer y = col
         color_discrete_map=c_map, custom_data=["name_id", col], 
         labels = {"_index": "platzierung"},
-        height = 70,
+        height = 100,
         )
     
     fig.update_layout(
         margin = margins, 
         paper_bgcolor = bg_col,
         plot_bgcolor = bg_col, 
-        font_color = font_col, 
         showlegend = False
     )
     fig.update_traces(hovertemplate = "%{customdata[0]} <br> Anzahl: %{customdata[1]} ", 
-        text = list(range(1,11)), textposition= "auto")
+        texttemplate = "%{customdata[0]}", textposition= "auto")
 
     fig.update_xaxes(visible= False, fixedrange = True)
     fig.update_yaxes(visible= False, fixedrange = True)
     return fig
 
 #returns treemap from party followers
-def get_treemap(dataframe):
+def get_treemap(dataframe, c_map):
     """ function to get treemap figure, return px.fig"""
-    c_map = {
-            '(?)':"#F7F7F7",
-            "bundestag": bg_col,
-            "cdu": "black",
-            "spd": "#ff3333",
-            "gruene": "limegreen",
-            "afd": "cornflowerblue",
-            "fdp": "gold",
-            "linke": "#b30000",
-            "csu": "dimgray",}
 
     fig = px.treemap(
         dataframe, path = ["bundestag", "partei", "name_id"], values = "num_followers", 
@@ -212,17 +209,8 @@ def get_treemap(dataframe):
     return fig
 
 #horizontal
-def horizontal(dataframe, partei):
+def horizontal(dataframe, partei, c_map):
 
-    c_map = {
-            "bundestag": "grey",
-            "cdu": "black",
-            "spd": "#ff3333",
-            "gruene": "limegreen",
-            "afd": "cornflowerblue",
-            "fdp": "gold",
-            "linke": "#b30000",
-            "csu": "dimgray",}
 
     anzahl = {
         "bundestag": 709,
@@ -241,18 +229,18 @@ def horizontal(dataframe, partei):
     prozent = int(zahl /anzahl[partei] * 100)
 
     fig = px.bar(
-        height = 50, 
+        height = 40, 
         color = [c_map[partei]], opacity=0.5
     )
     fig.add_trace(
-        Bar(x = [anzahl[partei]], marker = dict(color = c_map[partei], opacity = 0.5), hovertemplate = "MdBs: %{x}")
+        Bar(x = [anzahl[partei]], marker = dict(color = c_map[partei], opacity = 0.5, line_color = "black"), hovertemplate = "MdBs: %{x}")
     )
     fig.add_trace(
-        Bar(x = [zahl], marker = dict(color = [c_map[partei]]), hovertemplate = "MdBs mit Twitter: %{x}", 
-        text = f"{partei}-Mitglieder mit Twitter: {prozent} %", textposition = "auto")
+        Bar(x = [zahl], marker = dict(color = [c_map[partei]], line_color = "black"), hovertemplate = "MdBs mit Twitter: %{x}", 
+        text = f"{partei}-Mitglieder mit Twitter: {prozent} %", textposition = "auto"),
     )
 
-    margins = {"t": 0, "r": 0, "l": 10, "b": 0}
+    margins = {"t": 0, "r": 0, "l": 10, "b": 5}
     fig.update_layout(barmode = "overlay", margin = margins,
         plot_bgcolor= bg_col, showlegend= False)
 
@@ -277,40 +265,76 @@ def get_pos(search_column, value):
     return (text,c)
 
 #user div generation
-def user_generator(df, user):
-    row = t_df[t_df.name_id == user]
+def user_generator(df, user, c_map):
+    row = df[df.name_id == user]
+
+    if row.num_tweets.item() == 0:
+        div = html.Div(className = "pretty_container", children = [
+
+            html.H4("Twitter Profil:"),
+
+            html.Div(className = "bare_container", children = [
+                html.H5(row.name),
+                html.B(row.name_id),
+                html.P(row.desc),
+            ]),
+
+            html.B("Hat noch keinen einzigen tweets"),
+        ])
+
+        return div
+    
     art = nutzungsart(df, row)
     sent = sentiment(row)
-    #hashtags =  row.hashtags.split(", ") #hashtags from a user row
 
+    if row.hashtags.isna().any():
+        hashtags = "nutzer hat keine hashtags gepostet"
+        h_div = html.Div(className = "bare_container", children = [html.P(hashtags)])
 
+    else:
+        hs_list =  row.hashtags.item().split(", ")[:-1] #hashtags from a user row
+        hs_nested = Counter(hs_list).most_common(5)
+        childs = [html.B("Hashtags"),]
+        for tup in hs_nested:
+            childs.append(html.P(f"{tup[0]}: {tup[1]} Mal "))
+
+        h_div = html.Div(className = "bare_container", children = childs)
+        
 
     #poses = [get_pos()]
-    pos = get_pos(t_df.num_followers, row.num_followers.item())
+    pos_flws = get_pos(df.num_followers, row.num_followers.item())
+    pos_tspd = get_pos(df.ts_perday, row.ts_perday.item())
+    pos_fling = get_pos(df.num_following, row.num_following.item())
+    pos_ts = get_pos(df.num_tweets, row.num_tweets.item())
 
     div = html.Div(children = [
-        html.Div(className = "pretty_container", children = [
-            html.H5(row.name),
-            html.B(row.name_id),
-            html.P(row.desc),
+        html.Div( children = [
+
+            html.Div(className = "bare_container", children = [
+                html.H5(row.name),
+                html.B(row.name_id),
+                html.P(row.desc.item()),
+            ]),
 
             #first row
             html.Div(className = "row", children = [
                 html.Div(className = "four columns bare_container", children = [
-                    html.B("followers:"),
+                    html.B("Abonnenten"),
                     html.P(row.num_followers),
-                    html.P(pos[0]),
-                ], style = {"color": pos[1]}),
+                    html.P(pos_flws[0]),
+                ], style = {"background-color": pos_flws[1]}),
 
                 html.Div(className = "four columns bare_container", children = [
-                    html.B("following:"),
-                    html.P(row.num_following)
-                ]),
+                    html.B("hat abonniert"),
+                    html.P(row.num_following),
+                    html.P(pos_fling[0]),
+                ], style = {"background-color": pos_fling[1]}),
 
                 html.Div(className = "one-third column bare_container", children = [
                     html.B("Tweets"),
-                    html.P(row.num_tweets)
-                ]),
+                    html.P(row.num_tweets),
+                    html.P(pos_ts[0]),
+                ], style = {"background-color": pos_ts[1]}),
             ]),
 
             #second row
@@ -318,41 +342,39 @@ def user_generator(df, user):
                 html.Div(className = "four columns bare_container", children = [
                     html.B("tweets/tag:"),
                     html.P(round(row.ts_perday, 2)),
-                ]),
+                    html.P(pos_tspd[0])
+                ], style = {"background-color": pos_tspd[1]}
+                ),
 
                 html.Div(className = "four columns bare_container", children = [
-                    html.B("erstelldatum:"),
-                    html.P(row.created_at.item()[:10]),
-                ]),
+                    html.B("Laune"),
+                    #html.P(sent[0]),
+                    html.P(sent[1])
+                ], style = {"background-color": sent[2]}),
 
                 html.Div(className = "one-third column bare_container", children = [
-                    html.B("Laune"),
-                    html.P(sent[0]),
-                    #html.P(sent[1])
-                ]),
+                    html.B("Partei"),
+                    html.P(row.partei.item()),
+                ], style = {"background-color": c_map[row.partei.item()], "color": "white", "border-color": "black"}),
             ]),
 
             #zuletzt aktualisiert
-            html.Div(className = "twelve columns bare_container", children = [
+            html.Div(className = "bare_container", children = [
                 html.B(art[0]),
                 html.P(art[1]),
             ]),
 
-            html.P(f"zuletzt aktualisiert: {randint(10,24)}:{randint(10,60)}")
+            h_div,
+            html.P("yeet")
         ]),
 
 
     ])
     return div
 
-
-    
-
-
-
 mapbox_auth()
 
-t_df["bundestag"] = "Followerzahlen des Bundestages"
+t_df["bundestag"] = "Bundestag gesamt:"
 df = pd.merge(wahl_df, t_df, how = "inner", on="name_id")
 
 
@@ -379,7 +401,7 @@ app.layout = html.Div( children = [
 
             html.Div(className = "pretty_container", children = [
 
-                html.H1("Leaderboards"),
+                html.H4("Leaderboards"),
 
                 dcc.Dropdown(id = "drop1", 
                     options = [
@@ -390,7 +412,7 @@ app.layout = html.Div( children = [
                 ), 
 
                 dcc.Graph(id = "bar1",
-                    #figure = color_bar(t_df, "num_tweets"),
+                    
                     config = {"displayModeBar": False, "responsive": False, "displaylogo": False}
                 ),
 
@@ -405,7 +427,7 @@ app.layout = html.Div( children = [
                 ),
 
                 dcc.Graph(id = "bar2",
-                    #figure = color_bar(t_df, "replie_rate"),
+                    
                     config = {"displayModeBar": False, "displaylogo": False, "responsive": False}
                 ),
             
@@ -414,43 +436,45 @@ app.layout = html.Div( children = [
         ]),
 
         #second row
-        html.Div(className = "four columns pretty_container", children = [
+        html.Div(className = "four columns", children = [
 
-            html.Div(children = [
+            html.Div(className = "pretty_container", children = [
                 dcc.Graph(id = "wahl_map",
                     figure = figure_generator(df, "partei_x"),
                     config = {"displaylogo": False}
                 )
-            ]),
+            ], style = {"padding": "0px"}),
 
-            html.Div(children = [
+            html.Div(className = "pretty_container", children = [
+                html.H4("Followervergleich", style = {"margin": 10, "margin-bottom": 0, "margin-top": 0}),
                 dcc.Graph(id = "tree_map",
-                    figure = get_treemap(t_df),
+                    figure = get_treemap(t_df, c_map),
                     config = {"displaylogo": False}
-                )
-            ]),
-
-            html.Div(children = [
+                ),
+            
                 dcc.Graph(id = "horizontal",
                 config = {"responsive": False, "displayModeBar": False}
                 )
-            ])
+            ], style = {"padding": "0px"}),
 
 
-        ], style = {"padding": "0px"}),
+        ]),
         
         #third row
         html.Div(className = "four columns", children = [
 
-            html.Div(className = "pretty_container", children = [
-                html.H6("Nutzer wählen"),
-                html.B("Ausgewählter Nutzer"),
-                html.Div(id = "output-test"),
+            html.Div( className = "pretty_container", children = [
+                html.H4("nutzer"),
+                dcc.Input(id = "text-input", 
+                    type = "text", placeholder = "schreiben"
+                ),
+                html.Button("submit", id = "submit-button", n_clicks = 0),
 
+                html.Div(id = "select-out"),
             ]),
 
-            html.Div(children = [
-                user_generator(t_df, "@johannesvogel")
+            html.Div(id = "user-div", className = "pretty_container", children = [
+                user_generator(t_df, "@johannesvogel", c_map)
 
             ]),
         ]),
@@ -459,6 +483,11 @@ app.layout = html.Div( children = [
     ]),
 
 ])
+
+
+
+
+
 #dropwdown on bars callback
 @app.callback(
     Output("bar1", "figure"),
@@ -469,23 +498,38 @@ app.layout = html.Div( children = [
 )
 
 def update_bars(val1, val2):
-    figure1 = color_bar(t_df, val1)
-    figure2 = color_bar(t_df, val2)
+    figure1 = color_bar(t_df, val1, c_map)
+    figure2 = color_bar(t_df, val2, c_map)
 
     return figure1, figure2
 
 #user select callback
 @app.callback(
-    Output("output-test", "children"),
+    Output("user-div", "children"),
+    Output("select-out", "children"),
+
     Input("wahl_map", "clickData"),
+    Input("submit-button", "n_clicks"),
+    State("text-input", "value"),
+
 )
-def user_test(karte, tree):
-    try:
-        t = karte["points"][0]["customdata"][1]
-    except:
-        t = "select user"
-    
-    return [html.P(t), html.P(t2)]
+def user_select(map_click, clicked, text_in):
+    changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
+
+    if "wahl_map" in changed_id:
+        user = map_click["points"][0]["customdata"][1]
+        profil = user_generator(t_df, user, c_map)
+
+    elif "submit-button" in changed_id:
+        user = text_in
+        profil = user_generator(t_df, user, c_map)
+
+    else:
+        user = t_df.name_id.sample().item()
+        profil = user_generator(t_df, user, c_map)
+
+    out = f"{user}"
+    return profil, out
 
 #treemap callback
 @app.callback(
@@ -500,8 +544,11 @@ def update_horizontal(clickData):
     except:
         p = "bundestag"
 
-    figure = horizontal(t_df, p)
+    figure = horizontal(t_df, p, c_map)
     return figure
+
+
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)

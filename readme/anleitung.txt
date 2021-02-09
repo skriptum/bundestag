@@ -8,13 +8,13 @@ Liste der Twitter Accounts von Bundestagsabgeordneten
 
 Schritte:
 
-Shapefiles zu Geojson ändern. = mygeodata.cloud converter
+(Shape files verkleinern = mapshaper.org)
+Shapefiles zu Geojson ändern. = nicht !mygeodata.cloud converter, sondern https://products.aspose.app/gis/conversion/shapefile-to-geojson
 
-Daten von Twitter Accounts kriegen  = data.py run
+Daten von Twitter Accounts kriegen  = fetch.py run
 
 Matchen von Twitter Accounts und Abgeordneten = cleaning.py teil 1
 Danach in Handarbeit restliche Accounts
 
-Erstes Kartenbauen = cleaning.py Teil 2
+Run dash part
 
-Dann tweets aller User feschen
