@@ -34,7 +34,7 @@ t_df = t_df.drop(columns = ["Unnamed: 0"])
 bg_col = "#F9F9F9"
 
 c_map = {
-            '(?)':"#F7F7F7",
+            '(?)':"#F9F9F9",
             "bundestag": "rgba(246, 232, 223, 0.89)",
             "cdu": "rgba(37, 35, 33, 0.8)",
             "spd": "rgba(238, 12, 45, 0.8)",
@@ -76,7 +76,7 @@ def figure_generator(dataframe, color_column = "twitter"):
         )
 
     fig.update_traces(
-        hovertemplate = "<b>Abgeordneter : %{customdata[1]}</b>  <br>%{customdata[0]} <br>Partei: %{customdata[2]} "
+        hovertemplate = "<b>Abgeordnete/r : %{customdata[1]}</b>  <br>%{customdata[0]} <br>Partei: %{customdata[2]} "
     )
 
 
@@ -250,7 +250,7 @@ def horizontal(dataframe, partei, c_map):
 
     margins = {"t": 0, "r": 0, "l": 10, "b": 5}
     fig.update_layout(barmode = "overlay", margin = margins,
-        plot_bgcolor= bg_col, showlegend= False)
+        plot_bgcolor= bg_col, showlegend= False, paper_bgcolor = bg_col)
 
     fig.update_yaxes(visible = False, fixedrange = True)
     fig.update_xaxes(visible = False, fixedrange = True)
@@ -263,7 +263,7 @@ def get_pos(search_column, value):
     i = column[column == value].index[0]+1
     l = len(column)
 
-    colors = ["#2B8B0F","#A7C306","#E0CD20","#D58B10","#CF492D"]
+    colors = ["#339933","#A7C306","#E0CD20","#D58B10","#CF492D"]
 
     #returns the füfntel in which the value lies to index the color list
     cindex = int(i/(l/5))
@@ -373,7 +373,6 @@ def user_generator(df, user, c_map):
             ]),
 
             h_div,
-            html.P(f"zuletzt aktualisiert {pd.Timestamp.now().date()}")
         ]),
 
 
@@ -387,9 +386,9 @@ df = pd.merge(wahl_df, t_df, how = "inner", on="name_id")
 
 
 app = dash.Dash(
-    __name__, title = "twitter", meta_tags=[{"name": "viewport", "content": "width=device-width"}]
+    __name__, title = "twitter", meta_tags=[{"name": "viewport", "content": "width=device-width"}],suppress_callback_exceptions=True
     )
-#server = app.server
+server = app.server
 
 app.layout = html.Div( children = [
 
@@ -405,43 +404,48 @@ app.layout = html.Div( children = [
                 html.P("Fast 80% der Abgeordneten haben Twitter, aber nur 5% der Deutschen. \
                     Stellt sich die Frage, was die da eigentlich machen. Hier ist die Antwort"
                 )
-            ],
-            ),
+            ],),
 
             #Container für bestenlisten
             html.Div(className = "pretty_container", children = [
-
                 html.H4("Bestenlisten"),
 
-                dcc.Dropdown(id = "drop1", 
-                    options = [
-                        {"label":"anzahl tweets", "value": "num_tweets" },
-                        {"label":"abonnenten", "value": "num_followers"},
-                        {"label":"abonniert", "value": "num_following"},
-                    ], value = "num_tweets", clearable = False,
-                ), 
+                #first colorbar
+                html.Div(className = "bare_container", children = [
 
-                dcc.Graph(id = "bar1",
-                    
-                    config = {"displayModeBar": False, "responsive": False, "displaylogo": False}
-                ),
+                    dcc.Dropdown(id = "drop1", 
+                        options = [
+                            {"label":"anzahl tweets", "value": "num_tweets" },
+                            {"label":"abonnenten", "value": "num_followers"},
+                            {"label":"abonniert", "value": "num_following"},
+                        ], value = "num_tweets", clearable = False,
+                    ), 
+
+                    dcc.Graph(id = "bar1",
+                        config = {"displayModeBar": False, "responsive": False, "displaylogo": False},
+                    ),
+                ]),
 
                 html.Br(),
 
-                dcc.Dropdown(id = "drop2",
-                    options = [
-                        {"label":"Kommunizierer", "value": "replie_rate"},
-                        {"label":"Meinungsmacher", "value": "tweet_rate"},
-                        {"label":"Verbreiter", "value":"retweet_rate" },
-                    ], value = "replie_rate", clearable = False,
-                ),
+                #second colorabr
+                html.Div(className = "bare_container", children = [
 
-                dcc.Graph(id = "bar2",
-                    
-                    config = {"displayModeBar": False, "displaylogo": False, "responsive": False}
-                ),
-            
+                    dcc.Dropdown(id = "drop2",
+                        options = [
+                            {"label":"Kommunizierer", "value": "replie_rate"},
+                            {"label":"Meinungsmacher", "value": "tweet_rate"},
+                            {"label":"Verbreiter", "value":"retweet_rate" },
+                        ], value = "replie_rate", clearable = False,
+                    ),
+
+                    dcc.Graph(id = "bar2",                   
+                        config = {"displayModeBar": False, "displaylogo": False, "responsive": False},
+                    ),
+                ]),
+
             ]),
+
             #container für hashtags
             html.Div(className = "pretty_container", children = [
                 html.H4("Hashtags"),
@@ -495,9 +499,11 @@ app.layout = html.Div( children = [
             ]),
 
             #Nutzerdarstellung
-            html.Div(id = "user-div", className = "pretty_container", children = [
-                user_generator(t_df, "@johannesvogel", c_map)
-
+            html.Div(className = "pretty_container", children = [
+                html.Div(id = "user-div", children = [
+                
+                ]),
+                html.P(f"zuletzt aktualisiert {pd.Timestamp.now().date()}")
             ]),
         ]),
 
@@ -534,26 +540,30 @@ def update_bars(val1, val2):
     Input("submit-button", "n_clicks"),
     Input("bar1", "clickData"),
     Input("bar2", "clickData"),
+    Input("tree_map", "clickData"),
     State("text-input", "value"),
 
 
+
 )
-def user_select(map_click, submit_click, bar1_click, bar2_click, text_in):
+def user_select(map_click, submit_click, bar1_click, bar2_click, tree_click, text_in):
+
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
 
     if "wahl_map" in changed_id:
         user = map_click["points"][0]["customdata"][1]
         
-
     elif "submit-button" in changed_id:
         user = text_in
-        
 
     elif "bar1" in changed_id:
         user = bar1_click["points"][0]["customdata"][0]
 
     elif "bar2" in changed_id:
         user = bar2_click["points"][0]["customdata"][0]
+    
+    elif "tree_map" in changed_id:
+        user = tree_click["points"][0]["label"]
 
     else:
         user = t_df.name_id.sample().item()

@@ -119,7 +119,7 @@ body {
   font-weight: 400;
   font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgb(50, 50, 50);
-  background-color: #000000;
+  background-color: #c9c9c9;
   margin: 5px;
 }
 .pretty_container {
@@ -141,7 +141,7 @@ body {
 }
 
 .data_text {
-    font-size;
+  font-size;
 }
 
 .dcc_control {
