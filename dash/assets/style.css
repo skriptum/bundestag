@@ -44,7 +44,7 @@
     width: 80%; }
   .column,
   .columns {
-    margin-left: 0.5%; }
+    margin-left: 0.0%; } /*         the lfet margin !!!!!!!!*/
   /* .column:first-child,
   .columns:first-child {
     margin-left: 0; }
@@ -119,30 +119,39 @@ body {
   font-weight: 400;
   font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgb(50, 50, 50);
-  background-color: #c9c9c9;
-  margin: 5px;
+  background-color: rgb(194, 84, 64); /* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom right, rgb(235, 171, 76), rgb(167, 20, 20));
+  margin: 0px;
+  padding: 0;
 }
 .pretty_container {
   border-radius: 3px;
-  background-color: #F9F9F9;
-  margin-bottom: 5px;
+  background-color: #f9f9f9;
+  margin: 20px;
   padding: 10px;
   position: relative;
-  box-shadow: 2px 2px 2px #dadada00;
-  border: 1px solid;
+  box-shadow: 10px 10px #00000048;
+  border: 0px solid;
 }
 
 .bare_container {
   background-color: #F9F9F9;
-  padding: 6px;
+  padding: 5px;
   position: relative;
   border: 1px solid;
   margin: 3px;
 }
-
-.data_text {
-  font-size;
+.tab_selected_style  {
+  background-color: bg_col;
+  border-top: 3px solid #ff9900;
+  border-left: 3px solid #ff9900;
+  border-right: 3px solid #ff9900;
 }
+
+.tab_style {
+  border-bottom: 3px solid #ff9900;
+}
+
 
 .dcc_control {
   margin: 0;

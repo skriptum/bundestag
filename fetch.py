@@ -172,7 +172,7 @@ def tweet_check(status):
     #some general info about tweet
     user = t.user.screen_name
     t_id = t.id
-    t_date = t.created_at
+    t_date = t.created_at.hour
     other_u_dict = t.entities["user_mentions"]
 
     #the hashtags and other users return a list of dictionarys, which coulb be len 0,
@@ -257,9 +257,10 @@ user_dict = get_users_from_file() #get the users from the files
 
 df = user_list(user_dict)  #get the dataframe with user data
 
-
 id_list = df.name_id #built the list of ids
 id_list = id_list.values 
+
+
 
 #part2 get all tweets
 tweet_json = tweet_getter(id_list) #gets the json files for all the tweets
@@ -285,10 +286,6 @@ a_df = pd.merge(df, metric_df, how = "left", on = "name_id")
 
 #calculate tweet_rate ( if it is not a retweet or a replie)
 a_df["tweet_rate"] = 1 - (a_df.retweet_rate + a_df.replie_rate)
-
-#get the aktivity of every mdb
-labels = ["inaktiv", "wenig aktiv", "aktiv", "sehr aktiv"]
-a_df["aktivität"] = pd.qcut(a_df.ts_perday, q = 4, labels = labels)
 
 
 a_df.to_csv("data/accounts_data.csv")
