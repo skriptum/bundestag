@@ -9,7 +9,7 @@ import os
 from textblob_de import TextBlobDE as TextBlob
 
 #%%
-
+print("starting function and authorizing")
 #function for auth with api
 def api_auth(config_file = "config.ini"):
     """ authenticates with the twitter api, returns api
@@ -53,7 +53,8 @@ def get_user_info(username):
     try:
         target = api.get_user(id = username)
     except:
-        return print("failed:" + username)
+        print("failed:" + username)
+        return {"name_id": username}
     
     #some general info about the user
     name = target.name
@@ -63,11 +64,12 @@ def get_user_info(username):
     num_followers = target.followers_count
     num_following = target.friends_count
     num_tweets = target.statuses_count
+    image = target.profile_image_url.replace("_normal", "") 
 
     return {"name_id": username,
         "name":name, "created_at":creation_date, "desc":desc, "u_id": id,
         "num_followers":num_followers, "num_following":num_following, 
-        "num_tweets": num_tweets
+        "num_tweets": num_tweets, "img": image,
     }
 
 #get a table for twitter data from inputted users
@@ -78,7 +80,7 @@ def user_list(dictionary):
 
     central_df = pd.DataFrame(
         columns = ["name_id", 'name', 'created_at', 'desc', 'u_id', 'num_followers', 'num_following',
-       'num_tweets', "partei"]
+       'num_tweets',"img", "partei"]
     )
 
     for user, partei in dictionary.items():
@@ -101,11 +103,15 @@ def tweet_getter(list_of_ids, count = 20 ):
 
     for i in range(len(list_of_ids)):
         u_id = list_of_ids[i]
-        user_tweets = api.user_timeline(
-            u_id, count = count, tweet_mode = "extended", exclude_replies = False, include_rts = True
-            )
+        try:
+            user_tweets = api.user_timeline(
+                u_id, count = count, tweet_mode = "extended", exclude_replies = False, include_rts = True
+                )
 
-        tweet_list.append(user_tweets)
+            tweet_list.append(user_tweets)
+        except:
+            print(u_id)
+            continue
 
     return tweet_list
 
@@ -172,7 +178,7 @@ def tweet_check(status):
     #some general info about tweet
     user = t.user.screen_name
     t_id = t.id
-    t_date = t.created_at.hour
+    t_date = t.created_at
     other_u_dict = t.entities["user_mentions"]
 
     #the hashtags and other users return a list of dictionarys, which coulb be len 0,
@@ -260,7 +266,7 @@ df = user_list(user_dict)  #get the dataframe with user data
 id_list = df.name_id #built the list of ids
 id_list = id_list.values 
 
-
+#%%
 
 #part2 get all tweets
 tweet_json = tweet_getter(id_list) #gets the json files for all the tweets
@@ -288,4 +294,4 @@ a_df = pd.merge(df, metric_df, how = "left", on = "name_id")
 a_df["tweet_rate"] = 1 - (a_df.retweet_rate + a_df.replie_rate)
 
 
-a_df.to_csv("data/accounts_data.csv")
+a_df.to_csv("dash/data/accounts_data.csv")

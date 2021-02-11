@@ -11,7 +11,6 @@ from plotly.graph_objects import Bar
 import dash
 import dash_core_components as dcc 
 import dash_html_components as html
-import dash_bootstrap_components as dbc 
 from dash.dependencies import Input, Output, State
 
 
@@ -189,12 +188,12 @@ def sentiment(user_row):
     return (bez,text, sent_colors[bez])
 
 #function returns a bar with the top users in the specified metric
-def color_bar(df, col, c_map, typus = "Anzahl"):
+def color_bar(df, col, c_map, typus = "Anzahl", start = 0, stop = 10):
 
     sorted = df.sort_values(by = col, ascending = False)
     sorted = sorted[sorted.num_tweets > 5]
     sorted = sorted.reset_index()
-    sorted = sorted[:10]
+    sorted = sorted[start:stop]
     
     margins = {"t": 0, "r": 10, "l": 10, "b": 0}
     
@@ -228,13 +227,13 @@ def get_treemap(dataframe, c_map):
     fig = px.treemap(
         dataframe, path = ["bundestag", "partei", "name_id"], values = "num_followers", 
         color = "partei", color_discrete_map = c_map, 
-        custom_data=["num_followers"], #height=500,
+        #custom_data=["name_id"], #height=500,
         )
 
     margins = {"t": 20, "r": 0, "l": 0, "b": 0}
     fig.update_layout(margin = margins, paper_bgcolor= bg_col, plot_bgcolor = bg_col)
 
-    fig.update_traces(hovertemplate = " Follower: %{customdata[0]}")
+    fig.update_traces(hovertemplate = "%{label} <br> Follower: %{value}")
 
     return fig
 
@@ -290,7 +289,7 @@ def get_pos(search_column, value):
     cindex = int(i/(l/5))
     c = colors[cindex]
 
-    text = f"#{i} von {l}"
+    text = html.P(f"Platz {i}", style = {"text-decoration": "underline"})
     return (text,c)
 
 #user div generation
@@ -308,12 +307,18 @@ def user_generator(df, user, c_map):
 
             html.H4("Twitter Profil:"),
 
-            html.Div(className = "bare_container", children = [
-                html.H5(row.name),
-                html.B(row.name_id),
-                html.P(f"  {row.desc}"),
-            ]),
+            #user profile
+            html.Div(className = "row", children = [
+                html.Div(className = "nine columns bare_container", children = [
+                    dcc.Markdown(f"""#### **{row.name.item()}**    *{row.name_id.item()}* """),
 
+                    html.P(row.desc.item()),
+                ]),
+                html.Div(children = [
+                    html.Img(src = row.img.item(), 
+                    style = {"height": "120px", "width": "120px", "border-radius":"50%", "margin": "10px", "border": "1px solid"})
+                ])
+            ]),
             #first row
             html.Div(className = "row", children = [
                 html.Div(className = "four columns bare_container", children = [
@@ -338,6 +343,7 @@ def user_generator(df, user, c_map):
             html.Div(className = "bare_container", children = [
                 html.B("Hat noch keinen einzigen Tweet gepostet"),
                 ]),
+            html.A(href = f"https://twitter.com/{user[1:]}", target= "_blank", children = "Profil auf twitter")
         ])
 
         return div
@@ -369,12 +375,17 @@ def user_generator(df, user, c_map):
     div = html.Div(children = [
         html.Div( children = [
 
-            html.Div(className = "bare_container", children = [
-                dcc.Markdown(f"""#### **{row.name.item()}**    *{row.name_id.item()}* """),
+            html.Div(className = "row", children = [
+                html.Div(className = "nine columns bare_container", children = [
+                    dcc.Markdown(f"""#### **{row.name.item()}**    *{row.name_id.item()}* """),
 
-                html.P(row.desc.item()),
+                    html.P(row.desc.item()),
+                ]),
+                html.Div(children = [
+                    html.Img(src = row.img.item(), 
+                    style = {"height": "120px", "width": "120px", "border-radius":"50%", "margin": "10px", "border": "1px solid"})
+                ])
             ]),
-
             #first row
             html.Div(className = "row", children = [
                 html.Div(className = "four columns bare_container", children = [
@@ -426,6 +437,8 @@ def user_generator(df, user, c_map):
 
                 h_div,
             ]), 
+            html.A(href = f"https://twitter.com/{user[1:]}", target= "_blank", 
+                children = "Profil auf twitter.com (in neuem Tab)", style = {"color": "#133166"}),
         ]),
 
 
@@ -476,7 +489,7 @@ app.layout = html.Div( children = [
                         html.Div( children = [
                             dcc.Graph(id = "wahl_map",
                                 figure = figure_generator(df, "partei_x"),
-                                config = {"displaylogo": False},
+                                config = {"displaylogo": False, "modeBarButtonsToRemove": ["select2d", "lasso2d"]},
                                 style = {"height": "500px"}
                             )
                         ], style = {"padding": "0px"}),
@@ -539,9 +552,10 @@ app.layout = html.Div( children = [
                             ],style = {"padding": "10px"}),
                         ]),
 
+
                         html.Div(children = [
                             dcc.Graph(id = "bar1",
-                                config = {"displayModeBar": False, "responsive": False, "displaylogo": False},
+                                config = {"responsive": False, "displaylogo": False,  "modeBarButtonsToRemove": ["select2d", "lasso2d", "hoverCompareCartesian"]},
                             ),
                         ]),
 
@@ -574,7 +588,6 @@ app.layout = html.Div( children = [
                 
                 ]),
 
-                html.P(f"zuletzt aktualisiert {pd.Timestamp.now().date()}")
             ]),
         ]),
 
@@ -633,6 +646,7 @@ def update_bars(kategorie, partei):
 @app.callback(
     Output("user-div", "children"),
     Output("select-out", "children"),
+    Output("text-input", "value"),
 
     Input("wahl_map", "clickData"),
     Input("submit-button", "n_clicks"),
@@ -652,9 +666,9 @@ def user_select(map_click, submit_click, bar1_click, tree_click, text_in):
         user = text_in
         if sum(t_df.name_id == user) == 0:
             return dcc.Markdown(
-                f"Nutzer **{user}** nicht gefunden, achte auf korrekte Groß- und Kleinschreibung \
+                f"Nutzer **@{user}** nicht gefunden, achte auf korrekte Groß- und Kleinschreibung \
                      und vergiss nicht das **@**, wie bei *@sigmargabriel* (Beispiel)"
-                ), html.Br()
+                ), html.Br(), ""
 
     elif "bar1" in changed_id:
         user = bar1_click["points"][0]["customdata"][0]
@@ -667,7 +681,7 @@ def user_select(map_click, submit_click, bar1_click, tree_click, text_in):
         
     profil = user_generator(t_df, user, c_map)
     out = html.Br()#dcc.Markdown(f"**ausgewählt:** {user} ")
-    return profil, out
+    return profil, out, user
 
 #treemap callback
 @app.callback(
