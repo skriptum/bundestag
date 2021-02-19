@@ -39,7 +39,7 @@
 }
 
 /* For devices larger than 550px */
-@media (min-width: 550px) {
+@media (min-width: 1000px) {
   .container {
     width: 80%; }
   .column,
@@ -120,7 +120,7 @@ body {
   font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgb(50, 50, 50);
   background-color: rgb(194, 84, 64); /* For browsers that do not support gradients */
-  background-image: linear-gradient(to bottom right, rgb(235, 171, 76), rgb(167, 20, 20));
+  background-image: linear-gradient(to right, rgb(235, 171, 76), rgb(167, 20, 20));
   margin: 0px;
   padding: 0;
 }
@@ -154,6 +154,22 @@ body {
   border-bottom: 3px solid #ff9900;
 }
 
+.logo {
+  border: 2px solid #da8e1e;
+  height: 50px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  color: black;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.logo:hover {
+  background-color: #dfb577d7;
+  color: #693c21;
+}
 
 .dcc_control {
   margin: 0;
@@ -511,13 +527,13 @@ there.
 
 
 /* Larger than mobile */
-@media (min-width: 700px) {}
+@media (min-width: 1000px) {}
 
 /* Larger than phablet (also point when grid becomes active) */
-@media (min-width: 700px) {}
+@media (min-width: 1000px) {}
 
 /* Larger than tablet */
-@media (min-width: 750px) {}
+@media (min-width: 1000px) {}
 
 /* Larger than desktop */
 @media (min-width: 1000px) {}

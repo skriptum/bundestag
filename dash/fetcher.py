@@ -1,4 +1,3 @@
-#%%
 import tweepy 
 import pandas as pd
 import numpy as np
@@ -8,7 +7,9 @@ import datetime
 import os
 from textblob_de import TextBlobDE as TextBlob
 
-#%%
+d = pd.read_csv("data/accounts_data.csv", index_col = "name_id")
+user_dict = d.partei[:2].to_dict()
+
 print("starting function and authorizing")
 #function for auth with api
 def api_auth(config_file = "config.ini"):
@@ -65,7 +66,6 @@ def get_user_info(username):
     num_following = target.friends_count
     num_tweets = target.statuses_count
     image = target.profile_image_url.replace("_normal", "") 
-    image = image.replace("http:/", "https:")
 
     return {"name_id": username,
         "name":name, "created_at":creation_date, "desc":desc, "u_id": id,
@@ -259,8 +259,6 @@ def metricate(tweetdf):
 #%%
 #lets do this part1, get all users
 
-user_dict = {"@johannesvogel":"fdp"} #get the users from the files
-
 
 df = user_list(user_dict)  #get the dataframe with user data
 
@@ -294,5 +292,4 @@ a_df = pd.merge(df, metric_df, how = "left", on = "name_id")
 #calculate tweet_rate ( if it is not a retweet or a replie)
 a_df["tweet_rate"] = 1 - (a_df.retweet_rate + a_df.replie_rate)
 
-
-a_df.to_csv("dash/data/accounts_data.csv")
+a_df.to_csv("data/accounts_data.csv")

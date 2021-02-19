@@ -4,3 +4,4 @@ data/btw17
 config.ini
 .DS_Store
 __pycache__/
+dash/config.ini

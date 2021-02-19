@@ -227,7 +227,6 @@ def get_treemap(dataframe, c_map):
     fig = px.treemap(
         dataframe, path = ["bundestag", "partei", "name_id"], values = "num_followers", 
         color = "partei", color_discrete_map = c_map, 
-        #custom_data=["name_id"], #height=500,
         )
 
     margins = {"t": 20, "r": 0, "l": 0, "b": 0}
@@ -309,14 +308,14 @@ def user_generator(df, user, c_map):
 
             #user profile
             html.Div(className = "row", children = [
-                html.Div(className = "nine columns bare_container", children = [
+                html.Div(className = "ten columns bare_container", children = [
                     dcc.Markdown(f"""#### **{row.name.item()}**    *{row.name_id.item()}* """),
 
                     html.P(row.desc.item()),
                 ]),
-                html.Div(children = [
+                html.Div(className = "two columns", children = [
                     html.Img(src = row.img.item(), 
-                    style = {"height": "120px", "width": "120px", "border-radius":"50%", "margin": "10px", "border": "1px solid"})
+                    style = {"height": "110px", "width": "110px", "border-radius":"50%", "margin": "10px", "border": "1px solid"})
                 ])
             ]),
             #first row
@@ -381,9 +380,9 @@ def user_generator(df, user, c_map):
 
                     html.P(row.desc.item()),
                 ]),
-                html.Div(children = [
+                html.Div(className = "three columns", children = [
                     html.Img(src = row.img.item(), 
-                    style = {"height": "120px", "width": "120px", "border-radius":"50%", "margin": "10px", "border": "1px solid"})
+                    style = {"height": 110, "width" : "110px", "border-radius":"50%", "margin": "10px", "border": "1px solid"})
                 ])
             ]),
             #first row
@@ -445,7 +444,7 @@ def user_generator(df, user, c_map):
     ])
     return div
 
-t_df["bundestag"] = "Abonnenten gesamt:"
+t_df["bundestag"] = "bundestag"
 df = pd.merge(wahl_df, t_df, how = "inner", on="name_id")
 
 
@@ -466,14 +465,16 @@ app.layout = html.Div( children = [
             #Beschreibung des projekts
             html.Div(className = "pretty_container",children = [
                 html.Div( children = [
-                    html.H1("Bundestwitter"),
+                    html.Div(className = "row", children = [
+                        html.A(className = "four columns logo", target = "_blank", href = "https://skriptum.github.io", children = "Mehr Erfahren")
+                        ]),
+
+                    html.H1(["Bundestwitter"]),
 
                     dcc.Markdown("""
-                    Manchmal fragt man sich ja, was die Bundestagsabgeordneten den
-                    ganzen Tag so machen. Anscheinend sehr viel auf twitter sein, etwa 80%
-                    der MdBs sind hier angemeldet (im vergleich: nur 5% der Deutschen).
-                    Und was machen die da so? Hier ist die Antwort.
-
+                    Für die 95% der Deutschen, die nicht auf Twitter sind und sich fragen, was die 80% 
+                    der Bundestags-Abgeordneten den ganzen Tag auf Twitter machen.
+                    
                     > Alles hier ist interaktiv gestaltet. Bei einem Klick auf einen Wahlkreis
                     > oder ein Säulendiagramm wird bspw. das Profil des ausgewählten Abgeordneten angezeigt,
                     > beim Rüberfahren mit der Maus weiter Infos  
@@ -574,16 +575,16 @@ app.layout = html.Div( children = [
             html.Div( className = "pretty_container", children = [
                 html.H4("Twitter-Profil"),
 
-                html.Div(className = "six columns", children = [
-                    dcc.Input(id = "text-input", 
-                        type = "text", placeholder = "Nutzername eingeben"
-                    ),
-                    html.Button("Suche", id = "submit-button", n_clicks = 0),
+                html.Div(className = "row", children = [
+                    html.Div(className = "six columns", children = [
+                        dcc.Input(id = "text-input", 
+                            type = "text", placeholder = "Nutzername eingeben"
+                        ),
+                        html.Button("Suche", id = "submit-button", n_clicks = 0),
+                        html.Div(id = "select-out"),
+                    ]),
                 ]),
 
-                html.Div(id = "select-out"),
-                html.Br(),
-            
                 html.Div(id = "user-div", children = [
                 
                 ]),
@@ -598,7 +599,7 @@ app.layout = html.Div( children = [
 
             #container für hashtags
             html.Div(className = "pretty_container", children = [
-                dcc.Markdown("""#### Aktuelle Hashtags in der Bundestagsblase"""),
+                dcc.Markdown("""#### Aktuelle Hashtags im Bundestag"""),
                 dcc.Graph(
                     figure = get_hashtags(t_df), config = {"responsive": False, "displayModeBar": False}
                 ) 
@@ -639,7 +640,22 @@ def update_bars(kategorie, partei):
 
     return figure
 
+#treemap callback
+@app.callback(
+    Output("horizontal", "figure"),
+    Input("tree_map", "clickData"),
+)
+def update_horizontal(clickData):
+    try:
+        p = clickData["points"][0]["customdata"][0]
+        if p == "(?)":
+            p = "bundestag"
 
+    except:
+        p = "bundestag"
+    
+    figure = horizontal(t_df, p, c_map)
+    return figure
 
 
 #user select callback
@@ -683,21 +699,7 @@ def user_select(map_click, submit_click, bar1_click, tree_click, text_in):
     out = html.Br()#dcc.Markdown(f"**ausgewählt:** {user} ")
     return profil, out, user
 
-#treemap callback
-@app.callback(
-    Output("horizontal", "figure"),
-    Input("tree_map", "clickData"),
-)
-def update_horizontal(clickData):
-    try:
-        p = clickData["points"][0]["customdata"][1]
-        if p == '(?)':
-            p = "bundestag"
-    except:
-        p = "bundestag"
 
-    figure = horizontal(t_df, p, c_map)
-    return figure
 
 
 
