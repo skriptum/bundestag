@@ -466,7 +466,7 @@ app.layout = html.Div( children = [
             html.Div(className = "pretty_container",children = [
                 html.Div( children = [
                     html.Div(className = "row", children = [
-                        html.A(className = "four columns logo", target = "_blank", href = "https://skriptum.github.io/html/twitter.html", children = "Mehr Erfahren")
+                        html.A(className = "four columns logo", target = "_blank", href = "https://git.io/Jq28P", children = "Mehr Erfahren")
                         ]),
 
                     html.H1(["Bundestwitter"]),

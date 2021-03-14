@@ -257,8 +257,8 @@ def metricate(tweetdf):
 
 #%%
 #lets do this part1, get all users
-
-user_dict = get_users_from_file() #get the users from the files
+path = os.getcwd() + "/partei/"
+user_dict = get_users_from_file(path) #get the users from the files
 
 
 df = user_list(user_dict)  #get the dataframe with user data
@@ -296,3 +296,4 @@ a_df["img"] = a_df["img"].str.replace("http://", "https://")
 
 
 a_df.to_csv("dash/data/accounts_data.csv")
+a_df.to_csv("data/accounts_data.csv")
