@@ -1,8 +1,10 @@
 # Bundestagstwitter
 
-Eine Web-App, die alle bekannten Twitter-Konten von Bundestagsabgeordneten visualisiert und vergleichbar macht. 
+<img width="1440" alt="bundestwitter" src="https://user-images.githubusercontent.com/77919093/136674639-422c6804-b70c-4361-a38e-deab798e3b25.png">
 
-Fragen am besten den [Post](https://skriptum.github.io/html/twitter.html) oder eine [Mail](mailto:kkx@protonmail.com). 
+Eine Web-App, die alle bekannten Twitter-Konten von Bundestagsabgeordneten des Bundestags 2017-2021 visualisiert und vergleichbar macht.
+. 
+Fragen am besten den [Post](https://skriptum.github.io/blog/projects/2021/02/16/bundestwitter.html) oder eine [Mail](mailto:kkx@protonmail.com). 
 
 ## Funktionsweise
 
